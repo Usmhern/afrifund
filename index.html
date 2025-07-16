@@ -402,7 +402,7 @@
     const formData = new FormData(form);
 
     // Send data using fetch
-    fetch('https://script.google.com/macros/s/AKfycbyrqYeNjOcWFW3ELQvyAcYOcGftCsfwav75M-sqssWpwYPePkDdMQ66WjMM3hDAvvQ_/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbwpUVi917aDBd0A58BoMeVGUnyEjG7eifI_6L36eipMwNLy844x3VQYC3NRrPqGZQXu/exec', {
       method: 'POST',
       body: formData
     })
@@ -424,7 +424,7 @@
   }, 500);
 })
     .catch(error => {
-      alert("Error sending form. Please try again.");
+      alert("Error submitting. Please try again.");
       console.error(error);
       submitBtn.disabled = false;
       submitBtn.classList.remove('blinking');
