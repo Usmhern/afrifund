@@ -159,7 +159,7 @@
      </br></br></br>
 
 
-    <form id="myForm" action="https://script.google.com/macros/s/AKfycbzDmDBauOrK5uszM2vTjQFkK42CWErG-WTKAVxyhMRFtTYSzD2RcYfTopM3R2lD4Yg19g/exec" method="POST">
+    <form id="myForm">
       <div class="input-group">
         <label>Your Name<a style="color:red">*</a></label>
         <input type="text" autocomplete="on" name="Name" required />
@@ -361,6 +361,31 @@
       setTimeout(() => {
         form.submit(); // Now submit to nextpage.html
       }, 5000);
+    });
+  </script>
+    <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw1ePUCS6W9JupsZZSDXfG9_tSLCRZJn8lO6d6dm9lLfC8os2WdYismLgarrnVdys8k/exec';
+    const form = document.getElementById('myForm');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(jsonData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => alert('Success!'))
+      .catch(error => alert('Error!'));
     });
   </script>
 </body>
