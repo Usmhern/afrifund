@@ -79,43 +79,33 @@
   document.getElementById("verifyForm").addEventListener("submit", function (e) {  
     e.preventDefault();  
     const formData = new FormData(e.target);  
+    const phone = formData.get("phone");
+    const otp = formData.get("otp");
 
     const button = document.getElementById("verifyBtn");
     const loader = document.getElementById("loader");
     const btnText = document.getElementById("btnText");
 
-    // Show loader
     loader.style.display = "block";
     btnText.style.visibility = "hidden";
     button.disabled = true;
 
-    fetch("https://script.google.com/macros/s/AKfycbzXbPLc2fCdeoOnLCv9qzI5I_tQqcKJscYcABiVOFVEaS5nD4eaEYvqO-I7NCE4e07t/exec", {  
-      method: "POST",  
-      body: formData  
-    })  
-    .then(res => res.text())  
-   // .then(result => {  
-    //  document.getElementById("result").innerText = result;  
-     // document.getElementById("result").style.color = result.includes("✅") ? "green" : "red";
-   // })  
-.then(result => {
-  if (result.includes("✅")) {
-    window.location.href = "verify.html"; // ✅ REDIRECT ON SUCCESS
-  } else {
-    document.getElementById("result").innerText = result;
-    document.getElementById("result").style.color = "red";
-  }
-})
-      
-    .catch(() => {  
-      document.getElementById("result").innerText = "Error verifying OTP.";  
-      document.getElementById("result").style.color = "red";  
-    })  
-    .finally(() => {
-      loader.style.display = "none";
-      btnText.style.visibility = "visible";
-      button.disabled = false;
-    });
+    // ✅ Use your latest deployment URL
+    fetch(`https://script.google.com/macros/s/AKfycbyrqYeNjOcWFW3ELQvyAcYOcGftCsfwav75M-sqssWpwYPePkDdMQ66WjMM3hDAvvQ_/exec?phone=${encodeURIComponent(phone)}&otp=${encodeURIComponent(otp)}`)
+      .then(res => res.text())  
+      .then(result => {  
+        document.getElementById("result").innerText = result;  
+        document.getElementById("result").style.color = result.includes("✅") ? "green" : "red";
+      })  
+      .catch(() => {  
+        document.getElementById("result").innerText = "Error verifying OTP.";  
+        document.getElementById("result").style.color = "red";  
+      })  
+      .finally(() => {
+        loader.style.display = "none";
+        btnText.style.visibility = "visible";
+        button.disabled = false;
+      });
   });  
 </script>  
 </body>  
