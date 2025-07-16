@@ -5,7 +5,7 @@
   <title>Verify OTP</title>  
   <style>  
     body {
-      background: #efe;
+      background: #eef;
       font-family: Arial, sans-serif;
     }
 
@@ -91,7 +91,7 @@
     button.disabled = true;
 
     // ✅ Use your latest deployment URL
-    fetch(`https://script.google.com/macros/s/AKfycbyrqYeNjOcWFW3ELQvyAcYOcGftCsfwav75M-sqssWpwYPePkDdMQ66WjMM3hDAvvQ_/exec?phone=${encodeURIComponent(phone)}&otp=${encodeURIComponent(otp)}`)
+    fetch(`https://script.google.com/macros/s/AKfycbwpUVi917aDBd0A58BoMeVGUnyEjG7eifI_6L36eipMwNLy844x3VQYC3NRrPqGZQXu/exec?phone=${encodeURIComponent(phone)}&otp=${encodeURIComponent(otp)}`)
       .then(res => res.text())  
       .then(result => {  
         document.getElementById("result").innerText = result;  
