@@ -159,7 +159,7 @@
      </br></br></br>
 
 
-    <form id="myForm"action="https://script.google.com/macros/s/AKfycbzOqvP2KA0MgDpM0VG0XYB7HqJ2LWnoYhiR9ffB9WyzlXh7sY8ZLj6ndyu0n1OlR7wp/exec" method="POST" >
+    <form id="myForm">
       <div class="input-group">
         <label>Your Name<a style="color:red">*</a></label>
         <input type="text" autocomplete="on" name="Name" required />
@@ -363,6 +363,30 @@
       }, 3000);
     });
   </script>
-   
+     <script>
+    document.getElementById('myForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      fetch('https://script.google.com/macros/s/AKfycbzXbPLc2fCdeoOnLCv9qzI5I_tQqcKJscYcABiVOFVEaS5nD4eaEYvqO-I7NCE4e07t/exec', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(result => {
+        if (result.includes("Form submitted")) {
+          window.location.href = "verify.html"; // Redirect to OTP page
+        } else {
+          alert("Something went wrong: " + result);
+        }
+      })
+      .catch(error => {
+        alert("Error sending form.");
+        console.error(error);
+      });
+    });
+  </script>
 </body>
 </html>
