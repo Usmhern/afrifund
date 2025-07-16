@@ -286,8 +286,27 @@
       <button class="register-btn" id="submitBtn" type="submit">Submit</button>
     </form>
   </div>
+    <script>
+    const form = document.getElementById('myForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Stop immediate submit
+
+      // Disable and start blinking
+      submitBtn.disabled = true;
+      submitBtn.classList.add('blinking');
+      submitBtn.textContent = 'Processing...';
+
+      // Wait 10 seconds then submit
+      setTimeout(() => {
+       
+        form.submit(); // Now submit to nextpage.html
+      }, 2000);
+    });
+  </script>
 <script>
- /* document.getElementById('myForm').addEventListener('submit', function(e) {
+ document.getElementById('myForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
     const form = e.target;
@@ -308,7 +327,7 @@
       alert("Error sending form. Please try again.");
       console.error(error);
     });
-  });*/
+  });
 </script>
   <script>
     const lgas = {
@@ -367,25 +386,6 @@
         });
       }
     }
-  </script>
-   <script>
-    const form = document.getElementById('myForm');
-    const submitBtn = document.getElementById('submitBtn');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault(); // Stop immediate submit
-
-      // Disable and start blinking
-      submitBtn.disabled = true;
-      submitBtn.classList.add('blinking');
-      submitBtn.textContent = 'Processing...';
-
-      // Wait 10 seconds then submit
-      setTimeout(() => {
-       window.location.href = "verify.html";
-        form.submit(); // Now submit to nextpage.html
-      }, 2000);
-    });
   </script>
 </body>
 </html>
