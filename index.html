@@ -286,7 +286,30 @@
       <button class="register-btn" id="submitBtn" type="submit">Submit</button>
     </form>
   </div>
+<script>
+  document.getElementById('myForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch('https://script.google.com/macros/s/AKfycbzXbPLc2fCdeoOnLCv9qzI5I_tQqcKJscYcABiVOFVEaS5nD4eaEYvqO-I7NCE4e07t/exec', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+      console.log("Server response:", result);
+
+      // ✅ Always redirect after success
+      window.location.href = "verify.html";
+    })
+    .catch(error => {
+      alert("Error sending form. Please try again.");
+      console.error(error);
+    });
+  });
+</script>
   <script>
     const lgas = {
       "Abia": ["Aba North", "Aba South", "Umuahia North", "Umuahia South"],
@@ -361,31 +384,6 @@
       setTimeout(() => {
         form.submit(); // Now submit to nextpage.html
       }, 2000);
-    });
-  </script>
-     <script>
-    document.getElementById('myForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const form = e.target;
-      const formData = new FormData(form);
-
-      fetch('https://script.google.com/macros/s/AKfycbzXbPLc2fCdeoOnLCv9qzI5I_tQqcKJscYcABiVOFVEaS5nD4eaEYvqO-I7NCE4e07t/exec', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.text())
-      .then(result => {
-        if (result.includes("Form submitted")) {
-          window.location.href = "verify.html"; // Redirect to OTP page
-        } else {
-          alert("Something went wrong: " + result);
-        }
-      })
-      .catch(error => {
-        alert("Error sending form.");
-        console.error(error);
-      });
     });
   </script>
 </body>
