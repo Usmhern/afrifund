@@ -285,6 +285,7 @@
 
       <button class="register-btn" id="submitBtn" type="submit">Submit</button>
     </form>
+      <output id="duplicate"></output>
   </div>
    <script>/*
     const form = document.getElementById('myForm');
@@ -411,7 +412,11 @@
   console.log("Server response:", result);
 
   if (result.trim() === "DUPLICATE") {
-    alert("Already registered!");
+        document.getElementById("duplicate").innerText = "Already Registered!";  
+        document.getElementById("duplicate").style.color = "green"; 
+        document.getElementById("duplicate").style.fontSize = "30";  
+      
+   //alert("Already registered!");
     submitBtn.disabled = false;
     submitBtn.classList.remove('blinking');
     submitBtn.textContent = 'Submit';
@@ -424,7 +429,10 @@
   }, 500);
 })
     .catch(error => {
-      alert("Error submitting. Please try again.");
+      //alert("Error submitting. Please try again.");
+     document.getElementById("duplicate").innerText = "Error submitting. Please try again.";  
+        document.getElementById("duplicate").style.color = "green"; 
+        document.getElementById("duplicate").style.fontSize = "30";  
       console.error(error);
       submitBtn.disabled = false;
       submitBtn.classList.remove('blinking');
