@@ -423,10 +423,12 @@
     submitBtn.textContent = 'Submit';
     return;
   }
-
+document.getElementById("duplicate").innerText = "Submitted Successfully!";  
+        document.getElementById("duplicate").style.color = "green"; 
+        document.getElementById("duplicate").style.fontSize = "30px";
   // If not duplicate, proceed to next page
   setTimeout(() =>{
-    window.location.href = "verify.html";
+    window.location.href = "index.html";
   },50);
 })
     .catch(error => {
