@@ -282,10 +282,11 @@
       <input type="hidden" name="_subject" value="New Name Submission!">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_template_style" value="table,th {color: red;}">
-
+    </br>
+     <center><output id="duplicate"></output></center>
       <button class="register-btn" id="submitBtn" type="submit">Submit</button>
     </form>
-      <output id="duplicate"></output>
+      
   </div>
    <script>/*
     const form = document.getElementById('myForm');
@@ -424,15 +425,15 @@
   }
 
   // If not duplicate, proceed to next page
-  setTimeout(() => {
+  setTimeout(() =>50,{
     window.location.href = "verify.html";
-  }, 500);
+  });
 })
     .catch(error => {
       //alert("Error submitting. Please try again.");
      document.getElementById("duplicate").innerText = "Error submitting. Please try again.";  
         document.getElementById("duplicate").style.color = "green"; 
-        document.getElementById("duplicate").style.fontSize = "30";  
+        document.getElementById("duplicate").style.fontSize = "30px";  
       console.error(error);
       submitBtn.disabled = false;
       submitBtn.classList.remove('blinking');
