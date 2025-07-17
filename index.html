@@ -11,7 +11,7 @@
     }
 
     body {
-      background: linear-gradient(to top,#efe,#fff,#fff);
+      background: linear-gradient(to top,#dfd,#fff);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -167,7 +167,7 @@
     <form id="myForm">
       <div class="input-group">
         <label>Your Name<a style="color:red">*</a></label>
-        <input type="text" autocomplete="on" name="Name" required />
+        <input type="text" autocomplete="off" name="Name" required />
       </div>
       <!---<div class="input-group">
         <label>Middle Name (optional)</label>
@@ -179,20 +179,20 @@
       </div>-->
       <div class="input-group">
         <label>Date Of Birth<a style="color:red">*</a></label>
-        <input type="date" autocomplete="on" name="Date of Birth" required />
+        <input type="date" autocomplete="off" name="Date of Birth" required />
       </div>
       <div class="input-group">
         <label>Phone Number<a style="color:red">*</a></label>
         <input type="text" required name="Phone Number" placeholder=""
-          pattern="^\d{11}" autocomplete="on" />
+          pattern="^\d{11}" autocomplete="off" />
       </div>
       <div class="input-groupE">
         <label>Email<a style="color:red">*</a></label>
-        <input type="email" autocomplete="on" name="Email" placeholder="you@example.com" required />
+        <input type="email" autocomplete="off" name="Email" placeholder="you@example.com" required />
       </div>
       <div class="input-group">
         <label>NIN<a style="color:red">*</a></label>
-        <input type="text" autocomplete="on" name="NIN" minlength="11" maxlength="11" required pattern="\d{11}" title="Enter 11-digits NIN number"/>
+        <input type="text" autocomplete="off" name="NIN" minlength="11" maxlength="11" required pattern="\d{11}" title="Enter 11-digits NIN number"/>
       </div>
 
       <div class="input-group">
@@ -248,11 +248,11 @@
 
      <div class="input-group">
         <label>Account Number<a style="color:red">*</a></label>
-        <input type="text" autocomplete="on" name="Account Number" minlength="10" maxlength="10" pattern="\d{10}" required title="Enter 10-digits account number"/>
+        <input type="text" autocomplete="off" name="Account Number" minlength="10" maxlength="10" pattern="\d{10}" required title="Enter 10-digits account number"/>
       </div>
       <div class="input-group">
         <label for="bank">Select Your Bank<a style="color:red">*</a></label>
-<select name="Bank" id="Bank" autocomplete="on"  required>
+<select name="Bank" id="Bank" autocomplete="off"  required>
   <option value=""></option>
   <option value="Access">Access Bank</option>
   <option value="Citibank">Citibank Nigeria</option>
@@ -382,7 +382,7 @@
       const lgaSelect = document.getElementById("LGA");
       const selectedState = stateSelect.value;
 
-      lgaSelect.innerHTML = '<option value="">Select LGA</option>';
+      lgaSelect.innerHTML = '<option value=""></option>';
 
       if (lgas[selectedState]) {
         lgas[selectedState].forEach(lga => {
@@ -420,7 +420,7 @@
   if (result.trim() === "DUPLICATE") {
         document.getElementById("duplicate").innerText = "Already Registered!";  
         document.getElementById("duplicate").style.color = "green"; 
-        document.getElementById("duplicate").style.fontSize = "30";  
+        document.getElementById("duplicate").style.fontSize = "20px";  
       
    //alert("Already registered!");
     submitBtn.disabled = false;
@@ -430,7 +430,7 @@
   }
 document.getElementById("duplicate").innerText = "Submitted Successfully!";  
         document.getElementById("duplicate").style.color = "green"; 
-        document.getElementById("duplicate").style.fontSize = "30px";
+        document.getElementById("duplicate").style.fontSize = "20px";
   // If not duplicate, proceed to next page
   setTimeout(() =>{
     window.location.href = "index.html";
