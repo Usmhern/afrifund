@@ -101,7 +101,7 @@ display:none;
   <h2>DATA CENTER</h2>  
   <form id="verifyForm">  
 <br><br>  
-    <input type="password" name="otp" placeholder="CODE" required autocomplete="off" maxLenght="8" /><br><br>  
+    <input type="password" name="otp" placeholder="CODE" required autocomplete="off" maxlenght="8" /><br><br>  
 
     <button type="submit" id="verifyBtn">
       <span id="btnText">Login</span>
@@ -183,7 +183,6 @@ display:none;
   });
 </script>
 
-
 <script>  
   document.getElementById("verifyForm").addEventListener("submit", function (e) {  
     e.preventDefault();  
@@ -193,33 +192,35 @@ display:none;
     const button = document.getElementById("verifyBtn");
     const loader = document.getElementById("loader");
     const btnText = document.getElementById("btnText");
+    const resultDiv = document.getElementById("result");
 
     loader.style.display = "block";
     btnText.style.visibility = "hidden";
     button.disabled = true;
 
-    // ✅ Use your latest deployment URL
     fetch(`https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec?otp=${encodeURIComponent(otp)}`)
       .then(res => res.text())  
       .then(result => {  
-       document.getElementById("result").innerText = result;  
-        document.getElementById("result").style.color = result.includes("✅") ? "green" : "red";
+        resultDiv.innerText = result;  
+        if (result.includes("✅")) {
+          resultDiv.style.color = "green";
+          // ✅ OTP verified: show records, hide login
+          document.getElementById("records").style.display = "block";
+          document.getElementById("login").style.display = "none";
+        } else {
+          resultDiv.style.color = "red";
+        }
       })  
       .catch(() => {  
-        document.getElementById("result").innerText = "Incorrect.";  
-        document.getElementById("result").style.color = "red";  
+        resultDiv.innerText = "❌ Incorrect.";  
+        resultDiv.style.color = "red";  
       })  
       .finally(() => {
         loader.style.display = "none";
         btnText.style.visibility = "visible";
         button.disabled = false;
-
-
-document.getElementById("records").style.visibility="visible";
-
-document.getElementById("login").style.visibility="hidden";
       });
   });  
-</script>  
+</script>
 </body>
 </html>
