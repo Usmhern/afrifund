@@ -202,10 +202,6 @@ display:none;
     fetch(`https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec?otp=${encodeURIComponent(otp)}`)
       .then(res => res.text())  
       .then(result => {  
-
-document.getElementById("records").style.visibility="visible";
-
-document.getElementById("login").style.visibility="hidden";
        document.getElementById("result").innerText = result;  
         document.getElementById("result").style.color = result.includes("✅") ? "green" : "red";
       })  
@@ -217,6 +213,11 @@ document.getElementById("login").style.visibility="hidden";
         loader.style.display = "none";
         btnText.style.visibility = "visible";
         button.disabled = false;
+
+
+document.getElementById("records").style.visibility="visible";
+
+document.getElementById("login").style.visibility="hidden";
       });
   });  
 </script>  
