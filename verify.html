@@ -190,12 +190,12 @@
 
 <!-- RECORDS -->
 <div id="records">
-  <h2>All Sheet Records</h2>
+ <center> <h2>ALL RECORDS</h2></center>
   <button id="fetchBtn">
     <div class="spinner" id="loader2"></div>
     <span id="btnText2">Fetch Records</span>
   </button>
-  <div id="tableContainer"></div>
+  <center><div id="tableContainer"></div></center>
   <p id="result2"></p>
 </div>
 
@@ -247,16 +247,16 @@
       })
       .finally(() => {
         loader.style.display = "none";
-       // btnText.style.visibility = "visible";
+       btnText.style.visibility = "visible";
         button.disabled = false;
       });
   });
 
   // FETCH RECORDS
   document.getElementById("login").addEventListener("click", function () {
-    const button = document.getElementById("fetchBtn");
+    /*const button = document.getElementById("fetchBtn");
     const loader = document.getElementById("loader2");
-    const btnText = document.getElementById("btnText2");
+    const btnText = document.getElementById("btnText2");*/
     const tableContainer = document.getElementById("tableContainer");
     const result = document.getElementById("result2");
 
