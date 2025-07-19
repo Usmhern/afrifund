@@ -1,14 +1,10 @@
-<!--<!DOCTYPE html>  
+!DOCTYPE html>  
 <html lang="en">  
 <head>  
   <meta charset="UTF-8" />  
-  <title>Verify OTP</title>  
+  <title>LOGIN</title>
+  
   <style>  
-    body {
-      background: #e00;
-      font-family: Arial, sans-serif;
-    }
-
     h2 {
       color: navy;
       padding-top:5%;
@@ -30,99 +26,10 @@
       background:transparent;
     }
 
-    button {
-      background: darkblue;
-      color: #fff;
-      border-radius: 20px;
-      width: 140px;
-      height: 40px;
-      border: 1px solid white;
-      font-weight: bold;
-      position: relative;
-    }
-
-    .spinner {
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid white;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      animation: spin 0.8s linear infinite;
-      position: absolute;
-      top: 8px;
-      left: 100%;
-      transform: translateX(-50%);
-      display: none;
-    }
-
-    @keyframes spin {
-      0% { transform: translateX(-50%) rotate(0deg); }
-      100% { transform: translateX(-50%) rotate(360deg); }
-    }
-
     #result {
       margin-top: 15px;
       font-weight: bold;
-    }
-  </style>  
-</head>  
-<body>  
-<center>  
-  <h2>VERIFICATION</h2>  
-  <form id="verifyForm">  
-<br><br>  
-    <input type="text" name="otp" placeholder="Enter OTP" required autocomplete="off" maxLenght="6" /><br><br>  
-
-    <button type="submit" id="verifyBtn">
-      <span id="btnText">Verify</span>
-    <center>  <div class="spinner" id="loader"></div></center>
-    </button>  
-
-    <p id="result"></p>  
-  </form>  
-</center>  
-
-<script>  
-  document.getElementById("verifyForm").addEventListener("submit", function (e) {  
-    e.preventDefault();  
-    const formData = new FormData(e.target);  
-    const otp = formData.get("otp");
-
-    const button = document.getElementById("verifyBtn");
-    const loader = document.getElementById("loader");
-    const btnText = document.getElementById("btnText");
-
-    loader.style.display = "block";
-    btnText.style.visibility = "hidden";
-    button.disabled = true;
-
-    // ✅ Use your latest deployment URL
-    fetch(`https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec?otp=${encodeURIComponent(otp)}`)
-      .then(res => res.text())  
-      .then(result => {  
-        document.getElementById("result").innerText = result;  
-        document.getElementById("result").style.color = result.includes("✅") ? "green" : "red";
-      })  
-      .catch(() => {  
-        document.getElementById("result").innerText = "Error verifying OTP.";  
-        document.getElementById("result").style.color = "red";  
-      })  
-      .finally(() => {
-        loader.style.display = "none";
-        btnText.style.visibility = "visible";
-        button.disabled = false;
-      });
-  });  
-</script>  
-</body>  
-</html>
--->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Sheet Records</title>
-  <style>
+}
     body {
       background: #eff;
       font-family: Arial, sans-serif;
@@ -180,9 +87,35 @@
       margin-top: 15px;
       font-weight: bold;
     }
+#records{
+display:none;
+}
   </style>
 </head>
 <body>
+
+<!--LOGIN-->
+
+<div id="login">
+<center>  
+  <h2>AUTHENTICATION</h2>  
+  <form id="verifyForm">  
+<br><br>  
+    <input type="text" name="otp" placeholder="Enter OTP" required autocomplete="off" maxLenght="6" /><br><br>  
+
+    <button type="submit" id="verifyBtn">
+      <span id="btnText">Verify</span>
+    <center>  <div class="spinner" id="loader"></div></center>
+    </button>  
+
+    <p id="result"></p>  
+  </form>  
+</center>  
+</div>
+
+<!--RECORDS-->
+
+<div id="records">
   <center>
     <h2>All Sheet Records</h2>
     <button id="fetchBtn">
@@ -192,9 +125,9 @@
     <div id="tableContainer"></div>
     <p id="result"></p>
   </center>
+</div>
 
-<script>
-  document.getElementById("fetchBtn").addEventListener("click", function () {
+<script> document.getElementById("fetchBtn").addEventListener("click", function () {
     const button = document.getElementById("fetchBtn");
     const loader = document.getElementById("loader");
     const btnText = document.getElementById("btnText");
@@ -249,5 +182,41 @@
       });
   });
 </script>
+
+
+<script>  
+  document.getElementById("verifyForm").addEventListener("submit", function (e) {  
+    e.preventDefault();  
+    const formData = new FormData(e.target);  
+    const otp = formData.get("otp");
+
+    const button = document.getElementById("verifyBtn");
+    const loader = document.getElementById("loader");
+    const btnText = document.getElementById("btnText");
+
+    loader.style.display = "block";
+    btnText.style.visibility = "hidden";
+    button.disabled = true;
+
+    // ✅ Use your latest deployment URL
+    fetch(`https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec?otp=${encodeURIComponent(otp)}`)
+      .then(res => res.text())  
+      .then(result => {  
+
+document.getElementById("records").style.visible=true;
+        //document.getElementById("result").innerText = result;  
+        //document.getElementById("result").style.color = result.includes("✅") ? "green" : "red";
+      })  
+      .catch(() => {  
+        document.getElementById("result").innerText = "Incorrect.";  
+        document.getElementById("result").style.color = "red";  
+      })  
+      .finally(() => {
+        loader.style.display = "none";
+        btnText.style.visibility = "visible";
+        button.disabled = false;
+      });
+  });  
+</script>  
 </body>
 </html>
