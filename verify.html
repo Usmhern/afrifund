@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!--<!DOCTYPE html>  
 <html lang="en">  
 <head>  
   <meta charset="UTF-8" />  
@@ -115,4 +115,135 @@
   });  
 </script>  
 </body>  
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sheet Records</title>
+  <style>
+    body {
+      background: #eff;
+      font-family: Arial, sans-serif;
+    }
+    h2 {
+      color: navy;
+      padding-top:5%;
+    }
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0px 2px 5px grey;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      text-align: center;
+    }
+    th {
+      background: #dde;
+      color: #333;
+    }
+    button {
+      background: green;
+      color: #fff;
+      border-radius: 20px;
+      width: 140px;
+      height: 40px;
+      border: 1px solid white;
+      font-weight: bold;
+      position: relative;
+      margin-top: 30px;
+    }
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      animation: spin 0.8s linear infinite;
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: translateX(-50%) rotate(0deg); }
+      100% { transform: translateX(-50%) rotate(360deg); }
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <h2>All Sheet Records</h2>
+    <button id="fetchBtn">
+      <span id="btnText">Fetch Records</span>
+      <div class="spinner" id="loader"></div>
+    </button>
+    <div id="tableContainer"></div>
+    <p id="result"></p>
+  </center>
+
+<script>
+  document.getElementById("fetchBtn").addEventListener("click", function () {
+    const button = document.getElementById("fetchBtn");
+    const loader = document.getElementById("loader");
+    const btnText = document.getElementById("btnText");
+    const tableContainer = document.getElementById("tableContainer");
+
+    loader.style.display = "block";
+    btnText.style.visibility = "hidden";
+    button.disabled = true;
+
+    // ✅ Use your latest deployment URL that returns ALL records as JSON
+    fetch("https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec")
+      .then(res => res.json())
+      .then(data => {
+        // data should be an array of objects
+        if (!Array.isArray(data) || data.length === 0) {
+          tableContainer.innerHTML = "<p>No records found.</p>";
+          return;
+        }
+
+        // Create table
+        let tableHTML = "<table><thead><tr>";
+        // Table headers from the first object's keys
+        Object.keys(data[0]).forEach(key => {
+          tableHTML += `<th>${key}</th>`;
+        });
+        tableHTML += "</tr></thead><tbody>";
+
+        // Table rows
+        data.forEach(record => {
+          tableHTML += "<tr>";
+          Object.values(record).forEach(val => {
+            tableHTML += `<td>${val}</td>`;
+          });
+          tableHTML += "</tr>";
+        });
+        tableHTML += "</tbody></table>";
+
+        tableContainer.innerHTML = tableHTML;
+      })
+      .catch(() => {
+        tableContainer.innerHTML = "";
+        document.getElementById("result").innerText = "Error fetching records.";
+        document.getElementById("result").style.color = "red";
+      })
+      .finally(() => {
+        loader.style.display = "none";
+        btnText.style.visibility = "visible";
+        button.disabled = false;
+      });
+  });
+</script>
+</body>
 </html>
