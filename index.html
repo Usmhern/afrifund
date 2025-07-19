@@ -12,7 +12,7 @@
     }
 
     body {
-      background: linear-gradient(to top,#f0c,#ff0);
+      background: linear-gradient(to top,#0f5,#fff);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1312,7 +1312,7 @@ document.getElementById("duplicate").innerText = "Submitted Successfully!";
       if (result.includes("successfully") || result.includes("Success")) {
         output.textContent = "Submitted successfully!";
         output.style.color = "green";
-      } else if (result.includes("already") || result.includes("exist")) {
+      } else if (result.includes("already") || result.includes("duplicate")) {
         output.textContent = "Already registered.";
         output.style.color = "orange";
       } else {
