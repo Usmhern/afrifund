@@ -204,8 +204,8 @@ display:none;
       .then(result => {  
 
 document.getElementById("records").style.visible=true;
-        //document.getElementById("result").innerText = result;  
-        //document.getElementById("result").style.color = result.includes("✅") ? "green" : "red";
+       document.getElementById("result").innerText = result;  
+        document.getElementById("result").style.color = result.includes("✅") ? "green" : "red";
       })  
       .catch(() => {  
         document.getElementById("result").innerText = "Incorrect.";  
