@@ -2,29 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login + Sheet Fetch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOGIN</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background: #eff;
-      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      background: #eff;
+      font-family: Arial, sans-serif;
     }
 
     .menu-container {
-      position: absolute;
-      top: 15px;
-      right: 15px;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
     }
 
     .dots {
-      width: 24px;
+      cursor: pointer;
+      width: 30px;
       height: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      cursor: pointer;
+      align-items: center;
+      padding: 5px;
     }
 
     .dots div {
@@ -37,13 +44,14 @@
     .dropdown {
       display: none;
       position: absolute;
-      top: 30px;
+      top: 35px;
       right: 0;
-      background: white;
+      background-color: white;
       border: 1px solid #ccc;
+      box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
       border-radius: 5px;
-      min-width: 100px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      min-width: 120px;
     }
 
     .dropdown a {
@@ -51,103 +59,104 @@
       padding: 10px;
       text-decoration: none;
       color: black;
+      transition: background 0.2s;
     }
 
     .dropdown a:hover {
-      background: #f2f2f2;
+      background-color: #f2f2f2;
+    }
+
+    #login, #records {
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      text-align: center;
     }
 
     h2 {
-      text-align: center;
-      margin-top: 40px;
       color: navy;
+      margin-top: 50px;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 400px;
-      margin: auto;
-    }
-
-    input {
+    input[type="password"] {
       width: 100%;
       padding: 12px;
-      margin: 20px 0;
+      font-size: 20px;
+      text-align: center;
+      margin-top: 30px;
       border: none;
-      border-bottom: 2px solid #333;
-      font-size: 1.2rem;
+      border-bottom: 2px solid black;
       background: transparent;
+      outline: none;
     }
 
     button {
       background: darkgreen;
-      color: white;
-      padding: 10px 20px;
-      border: none;
+      color: #fff;
       border-radius: 20px;
+      width: 160px;
+      height: 45px;
+      border: none;
+      font-weight: bold;
+      font-size: 16px;
       cursor: pointer;
-      font-size: 1rem;
+      margin-top: 30px;
+      position: relative;
     }
 
-    .spinner {
-      display: none;
-      width: 18px;
-      height: 18px;
+    .spinner, #loader {
       border: 3px solid #f3f3f3;
       border-top: 3px solid white;
       border-radius: 50%;
+      width: 18px;
+      height: 18px;
       animation: spin 0.8s linear infinite;
-      margin-top: 10px;
+      position: absolute;
+      top: 13px;
+      left: 40%;
+      display: none;
     }
 
     @keyframes spin {
-      0% { transform: rotate(0); }
+      0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
 
-    #records {
-      display: none;
-      padding: 1rem;
-    }
-
-    #result {
-      text-align: center;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
     table {
-      width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
-      background: white;
-      box-shadow: 0 2px 5px gray;
+      width: 100%;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0px 2px 5px grey;
+      overflow-x: auto;
     }
 
     th, td {
-      border: 1px solid #333;
-      padding: 8px;
+      border: 1px solid darkblue;
+      padding: 8px 12px;
       text-align: center;
     }
 
     th {
-      background: navy;
-      color: white;
+      background: darkblue;
+      color: #fff;
+    }
+
+    #records {
+      display: none;
     }
 
     @media (max-width: 600px) {
-      input {
-        font-size: 1rem;
+      input[type="password"] {
+        font-size: 18px;
       }
 
       button {
-        font-size: 0.9rem;
+        width: 100%;
       }
 
       table, th, td {
-        font-size: 0.85rem;
+        font-size: 12px;
       }
     }
   </style>
@@ -156,94 +165,142 @@
 
 <div class="menu-container">
   <div class="dots" onclick="toggleMenu()">
-    <div></div><div></div><div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
   <div class="dropdown" id="menuDropdown">
-    <a href="#">.Admin</a>
-    <a href="#">.About</a>
+    <a href="index.html">.Admin</a>
+    <a href="#about">.About</a>
   </div>
 </div>
 
-<!-- Login Section -->
+<!-- LOGIN -->
 <div id="login">
   <h2>DATA CENTER</h2>
   <form id="verifyForm">
-    <input type="password" name="otp" placeholder="Enter OTP" maxlength="8" required />
-    <button type="submit">Login</button>
-    <div class="spinner" id="loaderLogin"></div>
+    <input type="password" name="otp" placeholder="Enter Code" required autocomplete="off" maxlength="8" />
+    <button type="submit" id="verifyBtn">
+      <span id="btnText">Login</span>
+      <div class="spinner" id="loader"></div>
+    </button>
     <p id="result"></p>
   </form>
 </div>
 
-<!-- Records Section -->
+<!-- RECORDS -->
 <div id="records">
-  <h2>Sheet Records</h2>
+  <h2>All Sheet Records</h2>
+  <button id="fetchBtn">
+    <div class="spinner" id="loader2"></div>
+    <span id="btnText2">Fetch Records</span>
+  </button>
   <div id="tableContainer"></div>
+  <p id="result2"></p>
 </div>
 
 <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec";
-
   function toggleMenu() {
-    const dropdown = document.getElementById("menuDropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    const dropdown = document.getElementById('menuDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
   }
 
-  document.getElementById("verifyForm").addEventListener("submit", function(e) {
+  window.addEventListener('click', function(e) {
+    const menu = document.getElementById('menuDropdown');
+    const dots = document.querySelector('.dots');
+    if (!dots.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+    }
+  });
+
+  // OTP VERIFICATION
+  document.getElementById("verifyForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    const otp = new FormData(this).get("otp");
-    const loader = document.getElementById("loaderLogin");
-    const result = document.getElementById("result");
+    const formData = new FormData(e.target);
+    const otp = formData.get("otp");
 
-    loader.style.display = "inline-block";
-    result.textContent = "";
+    const button = document.getElementById("verifyBtn");
+    const loader = document.getElementById("loader");
+    const btnText = document.getElementById("btnText");
+    const resultDiv = document.getElementById("result");
 
-    fetch(`${scriptURL}?otp=${encodeURIComponent(otp)}`)
+    loader.style.display = "block";
+    btnText.style.visibility = "hidden";
+    button.disabled = true;
+
+    fetch(`https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec?otp=${encodeURIComponent(otp)}`)
       .then(res => res.text())
-      .then(text => {
-        result.textContent = text;
-        if (text.includes("✅")) {
-          result.style.color = "green";
-          document.getElementById("login").style.display = "none";
+      .then(result => {
+        resultDiv.innerText = result;
+        if (result.includes("✅")) {
+          resultDiv.style.color = "green";
           document.getElementById("records").style.display = "block";
-          fetchSheetData();
+          document.getElementById("login").style.display = "none";
         } else {
-          result.style.color = "red";
+          resultDiv.style.color = "red";
         }
       })
+      .catch(() => {
+        resultDiv.innerText = "❌ Error verifying.";
+        resultDiv.style.color = "red";
+      })
+      .finally(() => {
+        loader.style.display = "none";
+        btnText.style.visibility = "visible";
+        button.disabled = false;
+      });
+  });
+
+  // FETCH RECORDS
+  document.getElementById("fetchBtn").addEventListener("click", function () {
+    const button = document.getElementById("fetchBtn");
+    const loader = document.getElementById("loader2");
+    const btnText = document.getElementById("btnText2");
+    const tableContainer = document.getElementById("tableContainer");
+    const result = document.getElementById("result2");
+
+    loader.style.display = "inline-block";
+    btnText.style.opacity = "0.5";
+    button.disabled = true;
+    result.textContent = "";
+
+    fetch("https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec")
+      .then(res => res.json())
+      .then(data => {
+        if (!Array.isArray(data) || data.length === 0) {
+          tableContainer.innerHTML = "<p>No records found.</p>";
+          return;
+        }
+
+        let tableHTML = "<table><thead><tr>";
+        Object.keys(data[0]).forEach(key => {
+          tableHTML += `<th>${key}</th>`;
+        });
+        tableHTML += "</tr></thead><tbody>";
+
+        data.forEach(row => {
+          tableHTML += "<tr>";
+          Object.values(row).forEach(val => {
+            tableHTML += `<td>${val}</td>`;
+          });
+          tableHTML += "</tr>";
+        });
+
+        tableHTML += "</tbody></table>";
+        tableContainer.innerHTML = tableHTML;
+      })
       .catch(err => {
-        result.textContent = "❌ Network error";
+        console.error(err);
+        tableContainer.innerHTML = "";
+        result.innerText = "❌ Internal error fetching records.";
         result.style.color = "red";
       })
       .finally(() => {
         loader.style.display = "none";
+        btnText.style.opacity = "1";
+        button.disabled = false;
       });
   });
-
-  function fetchSheetData() {
-    fetch(scriptURL)
-      .then(res => res.json())
-      .then(data => {
-        const tableContainer = document.getElementById("tableContainer");
-        let html = "<table><thead><tr>";
-        data[0].forEach(header => {
-          html += `<th>${header}</th>`;
-        });
-        html += "</tr></thead><tbody>";
-        for (let i = 1; i < data.length; i++) {
-          html += "<tr>";
-          data[i].forEach(cell => {
-            html += `<td>${cell}</td>`;
-          });
-          html += "</tr>";
-        }
-        html += "</tbody></table>";
-        tableContainer.innerHTML = html;
-      })
-      .catch(err => {
-        document.getElementById("tableContainer").innerHTML = "<p>❌ Failed to fetch data</p>";
-      });
-  }
 </script>
 
 </body>
