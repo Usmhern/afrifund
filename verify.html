@@ -1,14 +1,15 @@
-<head>  
-  <meta charset="UTF-8" />  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LOGIN</title>
-  
-  <style>  
+  <title>Login Page</title>
+
+  <style>
     body {
-      background: #eff;
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #eff;
     }
 
     .menu-container {
@@ -19,20 +20,20 @@
     }
 
     .dots {
-      cursor: pointer;
       width: 24px;
       height: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
+      cursor: pointer;
       padding: 5px;
     }
 
     .dots div {
       width: 5px;
       height: 5px;
-      background-color: #333;
+      background: #333;
       border-radius: 50%;
     }
 
@@ -41,12 +42,11 @@
       position: absolute;
       top: 30px;
       right: 0;
-      background-color: white;
+      background: white;
       border: 1px solid #ccc;
-      box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
       border-radius: 5px;
-      min-width: 120px;
-      z-index: 999;
+      min-width: 100px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     .dropdown a {
@@ -54,126 +54,138 @@
       padding: 10px;
       text-decoration: none;
       color: black;
-      transition: background 0.2s;
     }
 
     .dropdown a:hover {
-      background-color: #f2f2f2;
+      background: #f2f2f2;
     }
 
     h2 {
+      text-align: center;
       color: navy;
-      margin: 2rem 0 1rem;
-      font-size: 1.8rem;
+      margin-top: 50px;
     }
 
     form {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 90%;
       max-width: 400px;
       margin: auto;
+      padding: 20px;
     }
 
     input {
-      outline: none;
-      border: none;
-      border-bottom: 1px solid black;
-      height: 45px;
-      text-align: center;
       width: 100%;
-      font-size: 1.5rem;
+      padding: 10px;
+      margin: 20px 0;
+      border: none;
+      border-bottom: 2px solid #333;
+      font-size: 1.2rem;
+      border-radius: 5px;
       background: transparent;
-      box-shadow: 0px 2px 3px grey;
-      margin-top: 1rem;
     }
 
     button {
+      padding: 10px 20px;
       background: darkgreen;
-      color: #fff;
-      border-radius: 20px;
-      width: 80%;
-      max-width: 200px;
-      height: 45px;
+      color: white;
       border: none;
-      font-weight: bold;
+      border-radius: 20px;
       font-size: 1rem;
       cursor: pointer;
-      position: relative;
-      margin-top: 30px;
     }
 
-    .spinner, #loader {
+    .spinner {
+      display: none;
       border: 3px solid #f3f3f3;
-      border-top: 3px solid white;
+      border-top: 3px solid #fff;
       border-radius: 50%;
       width: 18px;
       height: 18px;
       animation: spin 0.8s linear infinite;
-      position: absolute;
-      top: 11px;
-      left: 45%;
-      display: none;
+      margin-top: 10px;
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
+      0% { transform: rotate(0); }
       100% { transform: rotate(360deg); }
-    }
-
-    #login, #records {
-      padding: 2rem 1rem;
-    }
-
-    #result {
-      margin-top: 1rem;
-      font-weight: bold;
-      font-size: 1rem;
-      text-align: center;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 20px;
-      background: #fff;
-      box-shadow: 0px 2px 5px grey;
-    }
-
-    th, td {
-      border: 1px solid darkblue;
-      padding: 8px 12px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    th {
-      background: darkblue;
-      color: #fff;
     }
 
     #records {
       display: none;
+      text-align: center;
+      padding: 20px;
     }
 
     @media (max-width: 600px) {
-      h2 {
-        font-size: 1.5rem;
-      }
-
       input {
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
 
       button {
         font-size: 0.9rem;
-        height: 40px;
-      }
-
-      table, th, td {
-        font-size: 0.8rem;
       }
     }
   </style>
 </head>
+<body>
+
+<div class="menu-container">
+  <div class="dots" onclick="toggleMenu()">
+    <div></div><div></div><div></div>
+  </div>
+  <div class="dropdown" id="menuDropdown">
+    <a href="#">.Admin</a>
+    <a href="#">.About</a>
+  </div>
+</div>
+
+<div id="login">
+  <h2>DATA CENTER</h2>
+  <form id="verifyForm">
+    <input type="password" name="otp" placeholder="Enter OTP" required maxlength="8" />
+    <button type="submit">Login</button>
+    <div class="spinner" id="loaderLogin"></div>
+    <p id="result"></p>
+  </form>
+</div>
+
+<div id="records">
+  <h2>All Sheet Records</h2>
+  <p>✅ You are logged in!</p>
+</div>
+
+<script>
+  function toggleMenu() {
+    const dropdown = document.getElementById("menuDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  }
+
+  document.getElementById("verifyForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const otp = new FormData(this).get("otp");
+    const loader = document.getElementById("loaderLogin");
+    const result = document.getElementById("result");
+
+    loader.style.display = "inline-block";
+    result.textContent = "";
+
+    // Simulate success for test
+    setTimeout(() => {
+      loader.style.display = "none";
+      if (otp === "1234") {
+        result.textContent = "✅ Verified!";
+        result.style.color = "green";
+        document.getElementById("login").style.display = "none";
+        document.getElementById("records").style.display = "block";
+      } else {
+        result.textContent = "❌ Incorrect code";
+        result.style.color = "red";
+      }
+    }, 1000);
+  });
+</script>
+
+</body>
+</html>
