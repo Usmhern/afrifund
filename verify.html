@@ -124,7 +124,7 @@
   <title>Sheet Records</title>
   <style>
     body {
-      background: #eff;
+      background: #e00;
       font-family: Arial, sans-serif;
     }
     h2 {
@@ -148,7 +148,7 @@
       color: #333;
     }
     button {
-      background: green;
+      background: darkblue;
       color: #fff;
       border-radius: 20px;
       width: 160px;
@@ -169,7 +169,7 @@
       animation: spin 0.8s linear infinite;
       position: absolute;
       top: 13px;
-      left: 15px;
+      left: 50%;
       display: none;
     }
     @keyframes spin {
@@ -239,7 +239,7 @@
       .catch(err => {
         console.error(err);
         tableContainer.innerHTML = "";
-        result.innerText = "❌Internal  Error fetching records.";
+        result.innerText = "❌Internal   Error, fetching records.";
         result.style.color = "red";
       })
       .finally(() => {
