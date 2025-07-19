@@ -237,7 +237,7 @@
         if (result.includes("✅")) {
           resultDiv.style.color = "green";
           document.getElementById("records").style.display = "block";
-          document.getElementById("login").style.display = "none";
+          document.getElementById("verifyBtn").style.display = "none";
         } else {
           resultDiv.style.color = "red";
         }
@@ -254,7 +254,7 @@
   });
 
   // FETCH RECORDS
-  document.getElementById("fetchBtn").addEventListener("click", function () {
+  document.getElementById("login").addEventListener("click", function () {
     const button = document.getElementById("fetchBtn");
     const loader = document.getElementById("loader2");
     const btnText = document.getElementById("btnText2");
