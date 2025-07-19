@@ -177,7 +177,7 @@
 
 <!-- LOGIN -->
 <div id="login">
-  <h2>DATA CENTER</h2>
+ <center> <h2>DATA CENTER</h2></center>
   <form id="verifyForm">
     <input type="password" name="otp" placeholder="Enter Code" required autocomplete="off" maxlength="8" />
     <button type="submit" id="verifyBtn">
@@ -190,7 +190,7 @@
 
 <!-- RECORDS -->
 <div id="records">
- <center> <h2>ALL RECORDS</h2></center>
+  <h2>ALL RECORDS</h2>
   <button id="fetchBtn">
     <div class="spinner" id="loader2"></div>
     <span id="btnText2">Fetch Records</span>
@@ -235,8 +235,7 @@
         if (result.includes("✅")) {
           resultDiv.style.color = "green";
           document.getElementById("records").style.display = "block";
-         
- document.getElementById("login").style.display = "none";
+          document.getElementById("login").style.display = "none";
         } else {
           resultDiv.style.color = "red";
         }
@@ -247,7 +246,7 @@
       })
       .finally(() => {
         loader.style.display = "none";
-       btnText.style.visibility = "visible";
+        btnText.style.visibility = "visible";
         button.disabled = false;
       });
   });
