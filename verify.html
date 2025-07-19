@@ -252,7 +252,7 @@
   });
 
   // FETCH RECORDS
-  document.getElementById("fetchBtn").addEventListener("click", function () {
+  /*document.getElementById("fetchBtn").addEventListener("click", function () {
     const button = document.getElementById("fetchBtn");
     const loader = document.getElementById("loader2");
     const btnText = document.getElementById("btnText2");
@@ -262,7 +262,7 @@
     loader.style.display = "inline-block";
     btnText.style.opacity = "0.5";
     button.disabled = true;
-    result.textContent = "";
+    result.textContent = "";*/
 
     fetch("https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec")
       .then(res => res.json())
