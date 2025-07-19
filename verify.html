@@ -1,20 +1,23 @@
-<!DOCTYPE html>  
-<html lang="en">  
 <head>  
   <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LOGIN</title>
   
   <style>  
+    body {
+      background: #eff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* 3-dot container */
     .menu-container {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 15px;
+      right: 15px;
       z-index: 1000;
     }
 
-    /* 3 dots icon */
     .dots {
       cursor: pointer;
       width: 24px;
@@ -33,7 +36,6 @@
       border-radius: 50%;
     }
 
-    /* Dropdown menu */
     .dropdown {
       display: none;
       position: absolute;
@@ -43,8 +45,8 @@
       border: 1px solid #ccc;
       box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
       border-radius: 5px;
-      overflow: hidden;
       min-width: 120px;
+      z-index: 999;
     }
 
     .dropdown a {
@@ -61,67 +63,48 @@
 
     h2 {
       color: navy;
-      padding-top:5%;
+      margin: 2rem 0 1rem;
+      font-size: 1.8rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      max-width: 400px;
+      margin: auto;
     }
 
     input {
-      //order-radius: 10px;
       outline: none;
+      border: none;
       border-bottom: 1px solid black;
-      border-top:none;
-      border-left:none;
-      border-right:none;
-      height: 40px;
+      height: 45px;
       text-align: center;
-      width: 45px;
-      font-size:30
+      width: 100%;
+      font-size: 1.5rem;
+      background: transparent;
       box-shadow: 0px 2px 3px grey;
-      margin-top:50%;
-      background:transparent;
+      margin-top: 1rem;
     }
 
-    #result {
-      margin-top: 15px;
-      font-weight: bold;
-}
-    body {
-      background: #eff;
-      font-family: Arial, sans-serif;
-    }
-    h2 {
-      color: navy;
-      padding-top: 5%;
-    }
-    table {
-      border-collapse: collapse;
-      width: 90%;
-      margin: 20px auto;
-      background: #fff;
-      box-shadow: 0px 2px 5px grey;
-    }
-    th, td {
-      border: 1px solid darkblue;
-      padding: 8px 12px;
-      text-align: center;
-    }
-    th {
-      background: darkblue;
-      color: #fff;
-    }
     button {
       background: darkgreen;
       color: #fff;
       border-radius: 20px;
-      width: 160px;
+      width: 80%;
+      max-width: 200px;
       height: 45px;
       border: none;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 1rem;
       cursor: pointer;
       position: relative;
       margin-top: 30px;
     }
-    .spinner,#loader {
+
+    .spinner, #loader {
       border: 3px solid #f3f3f3;
       border-top: 3px solid white;
       border-radius: 50%;
@@ -130,178 +113,67 @@
       animation: spin 0.8s linear infinite;
       position: absolute;
       top: 11px;
-      left: 40%;
+      left: 45%;
       display: none;
     }
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    #result {
-      margin-top: 15px;
-      font-weight: bold;
+
+    #login, #records {
+      padding: 2rem 1rem;
     }
-#records{
-display:none;
-}
+
+    #result {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      background: #fff;
+      box-shadow: 0px 2px 5px grey;
+    }
+
+    th, td {
+      border: 1px solid darkblue;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: darkblue;
+      color: #fff;
+    }
+
+    #records {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      input {
+        font-size: 1.2rem;
+      }
+
+      button {
+        font-size: 0.9rem;
+        height: 40px;
+      }
+
+      table, th, td {
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
-<body>
-<div class="menu-container">
-  <div class="dots" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-
-  <div class="dropdown" id="menuDropdown">
-    <a href="index.html">.Admin</a>
-    <a href="#about">.About</a>
-  </div>
-</div>
-<!--LOGIN-->
-
-<div id="login">
-<center>  
-  <h2>DATA CENTER</h2>  
-  <form id="verifyForm">  
-<br><br>  
-    <input type="password" name="otp" placeholder="CODE" required autocomplete="off" maxlenght="8" /><br><br>  
-
-    <button type="submit" id="verifyBtn">
-      <span id="btnText">Login</span>
-    <center>  <div class="spinner" id="loader"></div></center>
-    </button>  
-
-    <p id="result"></p>  
-  </form>  
-</center>  
-</div>
-
-<!--RECORDS-->
-
-<div id="records">
-  <center>
-    <h2>All Sheet Records</h2>
-    <button id="fetchBtn">
-      <div class="spinner" id="loader"></div>
-      <span id="btnText">Fetch Records</span>
-    </button>
-    <div id="tableContainer"></div>
-    <p id="result"></p>
-  </center>
-</div>
-
-<script> document.getElementById("fetchBtn").addEventListener("click", function () {
-    const button = document.getElementById("fetchBtn");
-    const loader = document.getElementById("loader");
-    const btnText = document.getElementById("btnText");
-    const tableContainer = document.getElementById("tableContainer");
-    const result = document.getElementById("result");
-
-    // UI feedback
-    loader.style.display = "inline-block";
-    btnText.style.opacity = "0.5";
-    button.disabled = true;
-    result.textContent = "";
-
-    // 🔗 Make sure this is your working deployed Apps Script URL
-    const url = "https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec";
-
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        if (!Array.isArray(data) || data.length === 0) {
-          tableContainer.innerHTML = "<p>No records found.</p>";
-          return;
-        }
-
-        // Build table
-        let tableHTML = "<table><thead><tr>";
-        Object.keys(data[0]).forEach(key => {
-          tableHTML += `<th>${key}</th>`;
-        });
-        tableHTML += "</tr></thead><tbody>";
-
-        data.forEach(row => {
-          tableHTML += "<tr>";
-          Object.values(row).forEach(val => {
-            tableHTML += `<td>${val}</td>`;
-          });
-          tableHTML += "</tr>";
-        });
-
-        tableHTML += "</tbody></table>";
-        tableContainer.innerHTML = tableHTML;
-      })
-      .catch(err => {
-        console.error(err);
-        tableContainer.innerHTML = "";
-        result.innerText = "❌Internal   Error, fetching records.";
-        result.style.color = "red";
-      })
-      .finally(() => {
-        loader.style.display = "none";
-        btnText.style.opacity = "1";
-        button.disabled = false;
-      });
-  });
-</script>
-
-<script>  
-  document.getElementById("verifyForm").addEventListener("submit", function (e) {  
-    e.preventDefault();  
-    const formData = new FormData(e.target);  
-    const otp = formData.get("otp");
-
-    const button = document.getElementById("verifyBtn");
-    const loader = document.getElementById("loader");
-    const btnText = document.getElementById("btnText");
-    const resultDiv = document.getElementById("result");
-
-    loader.style.display = "block";
-    btnText.style.visibility = "hidden";
-    button.disabled = true;
-
-    fetch(`https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec?otp=${encodeURIComponent(otp)}`)
-      .then(res => res.text())  
-      .then(result => {  
-        resultDiv.innerText = result;  
-        if (result.includes("✅")) {
-          resultDiv.style.color = "green";
-          // ✅ OTP verified: show records, hide login
-          document.getElementById("records").style.display = "block";
-          document.getElementById("login").style.display = "none";
-        } else {
-          resultDiv.style.color = "red";
-        }
-      })  
-      .catch(() => {  
-        resultDiv.innerText = "❌ Incorrect.";  
-        resultDiv.style.color = "red";  
-      })  
-      .finally(() => {
-        loader.style.display = "none";
-        btnText.style.visibility = "visible";
-        button.disabled = false;
-      });
-  });  
-</script>
-
-<script>
-  function toggleMenu() {
-    const dropdown = document.getElementById('menuDropdown');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-  }
-
-  // Optional: close menu if clicked outside
-  window.addEventListener('click', function(e) {
-    const menu = document.getElementById('menuDropdown');
-    const dots = document.querySelector('.dots');
-    if (!dots.contains(e.target) && !menu.contains(e.target)) {
-      menu.style.display = 'none';
-    }
-  });
-</script>
-</body>
-</html>
