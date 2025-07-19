@@ -1207,7 +1207,7 @@
     }
   </script>
  <script>
-  const form = document.getElementById('myForm');
+  /*const form = document.getElementById('myForm');
   const submitBtn = document.getElementById('submitBtn');
 
   form.addEventListener('submit', function (e) {
@@ -1258,7 +1258,80 @@ document.getElementById("duplicate").innerText = "Submitted Successfully!";
       submitBtn.classList.remove('blinking');
       submitBtn.textContent = 'Submit';
     });
+  });*/
+
+<script>
+  const form = document.getElementById('myForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const output = document.getElementById('duplicate');
+
+  // Add spinner styles
+  const spinner = document.createElement("span");
+  spinner.style.border = "2px solid white";
+  spinner.style.borderTop = "2px solid green";
+  spinner.style.borderRadius = "50%";
+  spinner.style.width = "15px";
+  spinner.style.height = "15px";
+  spinner.style.marginLeft = "10px";
+  spinner.style.animation = "spin 1s linear infinite";
+
+  const style = document.createElement("style");
+  style.innerHTML = `
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.classList.add('blinking');
+    submitBtn.textContent = 'Processing...';
+    submitBtn.appendChild(spinner);
+
+    output.textContent = 'Processing...';
+    output.classList.add('blinking');
+
+    const formData = new FormData(form);
+
+    fetch('https://script.google.com/macros/s/AKfycbzXbPLc2fCdeoOnLCv9qzI5I_tQqcKJscYcABiVOFVEaS5nD4eaEYvqO-I7NCE4e07t/exec', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('blinking');
+      submitBtn.textContent = 'Submit';
+      spinner.remove();
+
+      output.classList.remove('blinking');
+      if (result.includes("successfully") || result.includes("Success")) {
+        output.textContent = "Submitted successfully!";
+        output.style.color = "green";
+      } else if (result.includes("already") || result.includes("exist")) {
+        output.textContent = "Already registered.";
+        output.style.color = "orange";
+      } else {
+        output.textContent = "Unable to submit. Please try again.";
+        output.style.color = "red";
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('blinking');
+      submitBtn.textContent = 'Submit';
+      spinner.remove();
+
+      output.classList.remove('blinking');
+      output.textContent = 'Unable to submit. Please try again later.';
+      output.style.color = "red";
+    });
   });
+</script>
 </script>
 </body>
 </html>
