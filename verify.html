@@ -113,7 +113,7 @@
       animation: spin 0.8s linear infinite;
       position: absolute;
       top: 13px;
-      left: 40%;
+      left: 42%;
       display: none;
     }
 
@@ -170,12 +170,14 @@
     <div></div>
   </div>
   <div class="dropdown" id="menuDropdown">
-    <a href="index.html">.Admin</a>
-    <a href="#about">.About</a>
+    <a href="index.html">Dashboard</a>
+    <a href="#about">About</a>
+     <a href="verify.html">Admin</a>
+    <a href="#settings">Settings</a
   </div>
 </div>
 
-<!-- LOGIN -->
+<!-- LOGIN --><center>
 <div id="login">
   <h2>DATA CENTER</h2>
   <form id="verifyForm">
@@ -186,18 +188,18 @@
     </button>
     <p id="result"></p>
   </form>
-</div>
+</div></center>
 
-<!-- RECORDS -->
+<!-- RECORDS --><center>
 <div id="records">
-  <h2>All Sheet Records</h2>
+  <h2>ALL RECORDS</h2>
   <button id="fetchBtn">
     <div class="spinner" id="loader2"></div>
     <span id="btnText2">Fetch Records</span>
   </button>
   <div id="tableContainer"></div>
   <p id="result2"></p>
-</div>
+</div></center>
 
 <script>
   function toggleMenu() {
