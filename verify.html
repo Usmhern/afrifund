@@ -129,11 +129,11 @@
     }
     h2 {
       color: navy;
-      padding-top:5%;
+      padding-top: 5%;
     }
     table {
       border-collapse: collapse;
-      width: 80%;
+      width: 90%;
       margin: 20px auto;
       background: #fff;
       box-shadow: 0px 2px 5px grey;
@@ -151,10 +151,12 @@
       background: green;
       color: #fff;
       border-radius: 20px;
-      width: 140px;
-      height: 40px;
-      border: 1px solid white;
+      width: 160px;
+      height: 45px;
+      border: none;
       font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
       position: relative;
       margin-top: 30px;
     }
@@ -166,14 +168,13 @@
       height: 18px;
       animation: spin 0.8s linear infinite;
       position: absolute;
-      top: 8px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 13px;
+      left: 15px;
       display: none;
     }
     @keyframes spin {
-      0% { transform: translateX(-50%) rotate(0deg); }
-      100% { transform: translateX(-50%) rotate(360deg); }
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     #result {
       margin-top: 15px;
@@ -185,8 +186,8 @@
   <center>
     <h2>All Sheet Records</h2>
     <button id="fetchBtn">
-      <span id="btnText">Fetch Records</span>
       <div class="spinner" id="loader"></div>
+      <span id="btnText">Fetch Records</span>
     </button>
     <div id="tableContainer"></div>
     <p id="result"></p>
@@ -198,49 +199,52 @@
     const loader = document.getElementById("loader");
     const btnText = document.getElementById("btnText");
     const tableContainer = document.getElementById("tableContainer");
+    const result = document.getElementById("result");
 
-    loader.style.display = "block";
-    btnText.style.visibility = "hidden";
+    // UI feedback
+    loader.style.display = "inline-block";
+    btnText.style.opacity = "0.5";
     button.disabled = true;
+    result.textContent = "";
 
-    // ✅ Use your latest deployment URL that returns ALL records as JSON
-    fetch("https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec")
+    // 🔗 Make sure this is your working deployed Apps Script URL
+    const url = "https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec";
+
+    fetch(url)
       .then(res => res.json())
       .then(data => {
-        // data should be an array of objects
         if (!Array.isArray(data) || data.length === 0) {
           tableContainer.innerHTML = "<p>No records found.</p>";
           return;
         }
 
-        // Create table
+        // Build table
         let tableHTML = "<table><thead><tr>";
-        // Table headers from the first object's keys
         Object.keys(data[0]).forEach(key => {
           tableHTML += `<th>${key}</th>`;
         });
         tableHTML += "</tr></thead><tbody>";
 
-        // Table rows
-        data.forEach(record => {
+        data.forEach(row => {
           tableHTML += "<tr>";
-          Object.values(record).forEach(val => {
+          Object.values(row).forEach(val => {
             tableHTML += `<td>${val}</td>`;
           });
           tableHTML += "</tr>";
         });
-        tableHTML += "</tbody></table>";
 
+        tableHTML += "</tbody></table>";
         tableContainer.innerHTML = tableHTML;
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err);
         tableContainer.innerHTML = "";
-        document.getElementById("result").innerText = "Error fetching records.";
-        document.getElementById("result").style.color = "red";
+        result.innerText = "❌ Error fetching records.";
+        result.style.color = "red";
       })
       .finally(() => {
         loader.style.display = "none";
-        btnText.style.visibility = "visible";
+        btnText.style.opacity = "1";
         button.disabled = false;
       });
   });
