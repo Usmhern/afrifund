@@ -239,7 +239,7 @@
       .catch(err => {
         console.error(err);
         tableContainer.innerHTML = "";
-        result.innerText = "❌ Error fetching records.";
+        result.innerText = "❌Internal  Error fetching records.";
         result.style.color = "red";
       })
       .finally(() => {
