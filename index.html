@@ -363,7 +363,7 @@
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       if (distance > 0) {
-        timerElement.textContent = `Time left: ${hours}h ${minutes}m ${seconds}s`;
+        timerElement.textContent = `Time left: ${months}${hours}h ${minutes}m ${seconds}s`;
       } else {
         clearInterval(interval);
         timerElement.textContent = "⛔ Time is up!.";
