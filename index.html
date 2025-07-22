@@ -11,9 +11,9 @@
       font-family: 'Segoe UI', sans-serif;
     }
 #timer {
-      font-size: 18px;
+      font-size: 12px;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       color: red;
     }
     body {
@@ -168,10 +168,10 @@
         <center><img src="https://st2.depositphotos.com/6962450/10591/i/950/depositphotos_105914406-stock-illustration-nigeria-coat-of-arms.jpg" alt="Nigeria Coat of Arms" width="100"></center>
   <center>  <b><a style="color:navy;font-size:40px; font-family:impact;">Afri</a><a style="color:black; font-size:45px;">FUND </a></center>
   <center>   <b><a style="color:green; font-size:15px; font-family:monospace;"><i>For Nigerians...</i></a></b></center>
-     </br></br></br>
+     </br>
 
 <div id="timer">...</div>
-
+</br>
     <form id="myForm">
       <div class="input-group">
         <label>Your Name<a style="color:red">*</a></label>
@@ -372,7 +372,7 @@
       const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30);
       const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
 
-      timer.textContent = `⏳ Time left: ${months}m ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      timer.textContent = `⏳ Time left: ${months}Months/ ${days}Days/ ${hours}Hours/ ${minutes}Minutes ${seconds}Seconds`;
     }, 1000);
   </script>
 
