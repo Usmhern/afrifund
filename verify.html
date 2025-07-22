@@ -275,113 +275,6 @@ margin-top:5%;
     btnText.style.visibility = "hidden";
     button.disabled = true;
 
-    fetch(`https://script.google.com/macros/s/AKfycbxMRPy-PzQGGP2GbrTsQ5_HZo2mpNOJg6XY_mCz4qTGcXSHxgKSNEtzSLejj8clxef2/exec?otp=${encodeURIComponent(otp)}`)
-      .then(res => res.text())
-      .then(result => {
-        resultDiv.innerText = result;
-        if (result.includes("✅")) {
-          resultDiv.style.color = "green";
-          document.getElementById("login").style.display = "none";
-          document.getElementById("records").style.display = "block";
-          document.getElementById("verifyBtn").style.display = "none";
-        } else {
-          resultDiv.style.color = "red";
-        }
-      })
-      .catch(() => {
-        resultDiv.innerText = "❌ Error verifying.";
-        resultDiv.style.color = "red";
-      })
-      .finally(() => {
-        loader.style.display = "none";
-        btnText.style.visibility = "visible";
-        button.disabled = false;
-      });
-  });
-
-  // FETCH RECORDS
-  document.getElementById("fetchBtn").addEventListener("click", function () {
-    const button = document.getElementById("fetchBtn");
-    const loader = document.getElementById("loader2");
-    const btnText = document.getElementById("btnText2");
-    const tableContainer = document.getElementById("tableContainer");
-    const result = document.getElementById("result2");
-
-    loader.style.display = "inline-block";
-    btnText.style.opacity = "0.5";
-    button.disabled = true;
-    result.textContent = "";
-document.getElementById("fetchBtn").style.display = "none";
-    fetch("https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec")
-      .then(res => res.json())
-      .then(data => {
-        if (!Array.isArray(data) || data.length === 0) {
-          tableContainer.innerHTML = "<p>No records found.</p>";
-          return;
-        }
-
-        let tableHTML = "<table><thead><tr>";
-        Object.keys(data[0]).forEach(key => {
-          tableHTML += `<th>${key}</th>`;
-        });
-        tableHTML += "</tr></thead><tbody>";
-
-        data.forEach(row => {
-          tableHTML += "<tr>";
-          Object.values(row).forEach(val => {
-            tableHTML += `<td>${val}</td>`;
-          });
-          tableHTML += "</tr>";
-        });
-
-        tableHTML += "</tbody></table>";
-        tableContainer.innerHTML = tableHTML;
-      })
-      .catch(err => {
-        console.error(err);
-        tableContainer.innerHTML = "";
-        result.innerText = "❌ Internal error fetching records.";
-        result.style.color = "red";
-      })
-      .finally(() => {
-        loader.style.display = "none";
-        btnText.style.opacity = "1";
-        button.disabled = false;
-      });
-  });
-</script>
-
-<!-- PLACE THIS INSIDE YOUR <body> JUST BEFORE </body> -->
-<script>/*
-  let globalData = [];
-
-  // Toggle dropdown
-  function toggleMenu() {
-    const dropdown = document.getElementById('menuDropdown');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-  }
-
-  window.addEventListener('click', function (e) {
-    const menu = document.getElementById('menuDropdown');
-    const dots = document.querySelector('.dots');
-    if (!dots.contains(e.target) && !menu.contains(e.target)) {
-      menu.style.display = 'none';
-    }
-  });
-
-  // OTP verification
-  document.getElementById("verifyForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const otp = new FormData(this).get("otp");
-    const loader = document.getElementById("loader");
-    const btnText = document.getElementById("btnText");
-    const button = document.getElementById("verifyBtn");
-    const resultDiv = document.getElementById("result");
-
-    loader.style.display = "inline-block";
-    btnText.style.visibility = "hidden";
-    button.disabled = true;
-
     fetch(`https://script.google.com/macros/s/AKfycbxAkHuhDYgxtZmyI0ItkTFlkLZF-9IM5N2kSMu-XzkrS-e-L3r53Wb24MOe1lQZfozv/exec?otp=${encodeURIComponent(otp)}`)
       .then(res => res.text())
       .then(result => {
@@ -390,6 +283,7 @@ document.getElementById("fetchBtn").style.display = "none";
           resultDiv.style.color = "green";
           document.getElementById("login").style.display = "none";
           document.getElementById("records").style.display = "block";
+          document.getElementById("verifyBtn").style.display = "none";
         } else {
           resultDiv.style.color = "red";
         }
@@ -543,7 +437,116 @@ document.getElementById("fetchBtn").style.display = "none";
     link.target = "_blank";
     link.download = "Sheet-Export.pdf";
     link.click();
-  }*/
+  
+
+
+  // FETCH RECORDS
+  /*document.getElementById("fetchBtn").addEventListener("click", function () {
+    const button = document.getElementById("fetchBtn");
+    const loader = document.getElementById("loader2");
+    const btnText = document.getElementById("btnText2");
+    const tableContainer = document.getElementById("tableContainer");
+    const result = document.getElementById("result2");
+
+    loader.style.display = "inline-block";
+    btnText.style.opacity = "0.5";
+    button.disabled = true;
+    result.textContent = "";
+document.getElementById("fetchBtn").style.display = "none";
+    fetch("https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec")
+      .then(res => res.json())
+      .then(data => {
+        if (!Array.isArray(data) || data.length === 0) {
+          tableContainer.innerHTML = "<p>No records found.</p>";
+          return;
+        }
+
+        let tableHTML = "<table><thead><tr>";
+        Object.keys(data[0]).forEach(key => {
+          tableHTML += `<th>${key}</th>`;
+        });
+        tableHTML += "</tr></thead><tbody>";
+
+        data.forEach(row => {
+          tableHTML += "<tr>";
+          Object.values(row).forEach(val => {
+            tableHTML += `<td>${val}</td>`;
+          });
+          tableHTML += "</tr>";
+        });
+
+        tableHTML += "</tbody></table>";
+        tableContainer.innerHTML = tableHTML;
+      })
+      .catch(err => {
+        console.error(err);
+        tableContainer.innerHTML = "";
+        result.innerText = "❌ Internal error fetching records.";
+        result.style.color = "red";
+      })
+      .finally(() => {
+        loader.style.display = "none";
+        btnText.style.opacity = "1";
+        button.disabled = false;
+      });
+  });*/
+</script>
+
+<!-- PLACE THIS INSIDE YOUR <body> JUST BEFORE </body> -->
+<script>/*
+  let globalData = [];
+
+  // Toggle dropdown
+  function toggleMenu() {
+    const dropdown = document.getElementById('menuDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  }
+
+  window.addEventListener('click', function (e) {
+    const menu = document.getElementById('menuDropdown');
+    const dots = document.querySelector('.dots');
+    if (!dots.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+    }
+  });
+
+  // OTP verification
+  document.getElementById("verifyForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const otp = new FormData(this).get("otp");
+    const loader = document.getElementById("loader");
+    const btnText = document.getElementById("btnText");
+    const button = document.getElementById("verifyBtn");
+    const resultDiv = document.getElementById("result");
+
+    loader.style.display = "inline-block";
+    btnText.style.visibility = "hidden";
+    button.disabled = true;
+
+    fetch(`https://script.google.com/macros/s/AKfycbxAkHuhDYgxtZmyI0ItkTFlkLZF-9IM5N2kSMu-XzkrS-e-L3r53Wb24MOe1lQZfozv/exec?otp=${encodeURIComponent(otp)}`)
+      .then(res => res.text())
+      .then(result => {
+        resultDiv.innerText = result;
+        if (result.includes("✅")) {
+          resultDiv.style.color = "green";
+          document.getElementById("login").style.display = "none";
+          document.getElementById("records").style.display = "block";
+        } else {
+          resultDiv.style.color = "red";
+        }
+      })
+      .catch(() => {
+        resultDiv.innerText = "❌ Error verifying.";
+        resultDiv.style.color = "red";
+      })
+      .finally(() => {
+        loader.style.display = "none";
+        btnText.style.visibility = "visible";
+        button.disabled = false;
+      });
+  });
+
+}*/
 </script>
 
 </body>
