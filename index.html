@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -10,7 +10,12 @@
       box-sizing: border-box;
       font-family: 'Segoe UI', sans-serif;
     }
-
+#timer {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: red;
+    }
     body {
      background: linear-gradient(to top,#dbf9db,#fff);
 //background:#f5f;
@@ -165,6 +170,7 @@
   <center>   <b><a style="color:green; font-size:15px; font-family:monospace;"><i>For Nigerians...</i></a></b></center>
      </br></br></br>
 
+<div id="timer">The application will be closed in...</div>
 
     <form id="myForm">
       <div class="input-group">
@@ -1261,6 +1267,33 @@ document.getElementById("duplicate").innerText = "Submitted Successfully!";
     });
   });
 </script>
+  <script>
+    // 🕓 Set your target end time (YYYY-MM-DDTHH:MM:SS format)
+    const targetTime = new Date("2025-08-22T15:30:00").getTime(); // example date
 
+    const timerElement = document.getElementById("timer");
+    const form = document.getElementById("myForm");
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetTime - now;
+
+      // Time calculations
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (distance > 0) {
+        timerElement.textContent = `Time left: ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        clearInterval(interval);
+        timerElement.textContent = "⛔ Time is up!.";
+        
+        // Disable all form inputs
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach(input => input.disabled = true);
+      }
+    }, 1000);
+  </script>
 </body>
 </html>
