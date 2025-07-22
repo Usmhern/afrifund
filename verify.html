@@ -245,63 +245,201 @@ margin-top:5%;
 <div id="editContainer" style="margin-top: 20px; padding: 10px;"></div>
   <p id="result2"></p>
 </div>
+
 <script>
-function fetchRecords() {
-  const button = document.getElementById("fetchBtn");
-  const loader = document.getElementById("loader2");
-  const btnText = document.getElementById("btnText2");
-  const tableContainer = document.getElementById("tableContainer");
-  const result = document.getElementById("result2");
+  let globalData = [];
 
-  loader.style.display = "inline-block";
-  btnText.style.opacity = "0.5";
-  button.disabled = true;
-  result.textContent = "";
-  document.getElementById("fetchBtn").style.display = "none";
+  // Toggle dropdown menu
+  function toggleMenu() {
+    const dropdown = document.getElementById('menuDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  }
 
-  fetch("https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec")
-    .then(res => res.json())
-    .then(data => {
-      globalData = data;
-      if (!Array.isArray(data) || data.length === 0) {
-        tableContainer.innerHTML = "<p>No records found.</p>";
-        return;
-      }
+  window.addEventListener('click', function(e) {
+    const menu = document.getElementById('menuDropdown');
+    const dots = document.querySelector('.dots');
+    if (!dots.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+    }
+  });
 
-      let tableHTML = "<table><thead><tr><th>SN</th>";
-      Object.keys(data[0]).forEach(key => {
-        tableHTML += `<th>${key}</th>`;
+  // OTP VERIFICATION
+  document.getElementById("verifyForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const otp = formData.get("otp");
+
+    const button = document.getElementById("verifyBtn");
+    const loader = document.getElementById("loader");
+    const btnText = document.getElementById("btnText");
+    const resultDiv = document.getElementById("result");
+
+    loader.style.display = "block";
+    btnText.style.visibility = "hidden";
+    button.disabled = true;
+
+    fetch(`https://script.google.com/macros/s/AKfycbxAkHuhDYgxtZmyI0ItkTFlkLZF-9IM5N2kSMu-XzkrS-e-L3r53Wb24MOe1lQZfozv/exec?otp=${encodeURIComponent(otp)}`)
+      .then(res => res.text())
+      .then(result => {
+        resultDiv.innerText = result;
+        if (result.includes("✅")) {
+          resultDiv.style.color = "green";
+          document.getElementById("login").style.display = "none";
+          document.getElementById("records").style.display = "block";
+          document.getElementById("verifyBtn").style.display = "none";
+        } else {
+          resultDiv.style.color = "red";
+        }
+      })
+      .catch(() => {
+        resultDiv.innerText = "❌ Error verifying.";
+        resultDiv.style.color = "red";
+      })
+      .finally(() => {
+        loader.style.display = "none";
+        btnText.style.visibility = "visible";
+        button.disabled = false;
       });
-      tableHTML += "<th>Actions</th></tr></thead><tbody>";
+  });
 
-      data.forEach((row, index) => {
-        tableHTML += `<tr data-index="${index}"><td>${index + 1}</td>`;
-        Object.values(row).forEach(val => {
-          tableHTML += `<td>${val}</td>`;
+  // FETCH RECORDS
+  document.getElementById("fetchBtn").addEventListener("click", fetchRecords);
+
+  function fetchRecords() {
+    const button = document.getElementById("fetchBtn");
+    const loader = document.getElementById("loader2");
+    const btnText = document.getElementById("btnText2");
+    const tableContainer = document.getElementById("tableContainer");
+    const result = document.getElementById("result2");
+
+    loader.style.display = "inline-block";
+    btnText.style.opacity = "0.5";
+    button.disabled = true;
+    result.textContent = "";
+    button.style.display = "none";
+
+    fetch("https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec")
+      .then(res => res.json())
+      .then(data => {
+        globalData = data;
+        if (!Array.isArray(data) || data.length === 0) {
+          tableContainer.innerHTML = "<p>No records found.</p>";
+          return;
+        }
+
+        let tableHTML = "<table><thead><tr><th>SN</th>";
+        Object.keys(data[0]).forEach(key => {
+          tableHTML += `<th>${key}</th>`;
         });
-        tableHTML += `
-          <td>
-            <button onclick="editRow(${index})" style="background:orange;color:white;padding:5px 10px;border:none;border-radius:5px;margin-right:5px;">Edit</button>
-            <button onclick="deleteRow(${index})" style="background:red;color:white;padding:5px 10px;border:none;border-radius:5px;">Delete</button>
-          </td>
-        </tr>`;
-      });
+        tableHTML += "<th>Actions</th></tr></thead><tbody>";
 
-      tableHTML += "</tbody></table>";
-      tableContainer.innerHTML = tableHTML;
+        data.forEach((row, index) => {
+          tableHTML += `<tr data-index="${index}"><td>${index + 1}</td>`;
+          Object.values(row).forEach(val => {
+            tableHTML += `<td>${val}</td>`;
+          });
+          tableHTML += `
+            <td>
+              <button onclick="editRow(${index})" style="background:orange;color:white;padding:5px 10px;border:none;border-radius:5px;margin-right:5px;">Edit</button>
+              <button onclick="deleteRow(${index})" style="background:red;color:white;padding:5px 10px;border:none;border-radius:5px;">Delete</button>
+            </td>
+          </tr>`;
+        });
+
+        tableHTML += "</tbody></table>";
+        tableContainer.innerHTML = tableHTML;
+      })
+      .catch(err => {
+        console.error(err);
+        result.innerText = "❌ Internal error fetching records.";
+        result.style.color = "red";
+        tableContainer.innerHTML = "";
+      })
+      .finally(() => {
+        loader.style.display = "none";
+        btnText.style.opacity = "1";
+        button.disabled = false;
+      });
+  }
+
+  // DELETE ROW
+  function deleteRow(index) {
+    if (!confirm("Are you sure you want to delete this row?")) return;
+
+    fetch("https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "delete", index })
+    })
+    .then(res => res.text())
+    .then(msg => {
+      alert(msg);
+      fetchRecords();
     })
     .catch(err => {
       console.error(err);
-      result.innerText = "❌ Internal error fetching records.";
-      result.style.color = "red";
-      tableContainer.innerHTML = "";
-    })
-    .finally(() => {
-      loader.style.display = "none";
-      btnText.style.opacity = "1";
-      button.disabled = false;
+      alert("❌ Failed to delete row.");
     });
-}
+  }
+
+  // EDIT ROW
+  function editRow(index) {
+    const row = globalData[index];
+    const keys = Object.keys(row);
+
+    let formHtml = `<h3>Edit Record</h3><form id="editForm">`;
+    keys.forEach(key => {
+      formHtml += `
+        <label>${key}</label><br/>
+        <input type="text" name="${key}" value="${row[key]}" style="width:95%;margin-bottom:10px;" required /><br/>
+      `;
+    });
+    formHtml += `
+      <input type="hidden" name="index" value="${index}" />
+      <button type="submit" style="background:green;color:white;padding:10px 20px;border:none;border-radius:5px;">Save</button>
+      <button type="button" onclick="document.getElementById('editContainer').innerHTML=''" style="margin-left:10px;">Cancel</button>
+    </form>`;
+
+    document.getElementById("editContainer").innerHTML = formHtml;
+
+    document.getElementById("editForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const updated = {};
+      keys.forEach(k => updated[k] = formData.get(k));
+
+      fetch("https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "update",
+          index: parseInt(formData.get("index")),
+          data: updated
+        })
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        document.getElementById("editContainer").innerHTML = "";
+        fetchRecords();
+      })
+      .catch(err => {
+        console.error(err);
+        alert("❌ Update failed.");
+      });
+    });
+  }
+
+  // EXPORT TO PDF
+  function exportToPDF() {
+    const url = `https://docs.google.com/spreadsheets/d/1qM3kfnC3EyNSZFvBD6-Nd3sj78SVoNSawgbWwiyTpAY/export?format=pdf&portrait=false&sheetnames=false&printtitle=false&pagenumbers=false&gridlines=false&fzr=false&gid=0`;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.download = "Sheet-Export.pdf";
+    link.click();
+  }
 </script>
 </body>
 </html>
