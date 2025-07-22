@@ -356,35 +356,7 @@ font-family:monospace;
   });*/
 </script>
 
-  <script>
-    // 🔒 Set your deadline (YYYY-MM-DDTHH:MM:SS)
-    const targetDate = new Date("2025-08-22T15:30:00").getTime();
-
-    const timer = document.getElementById("timer");
-    const form = document.getElementById("myForm");
-
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      let diff = targetDate - now;
-
-      if (diff <= 0) {
-        clearInterval(interval);
-        timer.textContent = "⛔ Time is up! Form is disabled.";
-        const inputs = form.querySelectorAll("input");
-        inputs.forEach(input => input.disabled = true);
-        return;
-      }
-
-      // Breakdown the time
-      const seconds = Math.floor((diff / 1000) % 60);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30);
-      const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
-
-      timer.textContent = `Time left: ${months} Month/ ${days} Days/ ${hours} H/ ${minutes} M ${seconds} S`;
-    }, 1000);
-  </script>
+  
 
   <script>
     const lgas = {
@@ -1309,6 +1281,34 @@ document.getElementById("duplicate").innerText = "Submitted Successfully!";
     });
   });
 </script>
- 
+ <script>
+    // 🔒 Set your deadline (YYYY-MM-DDTHH:MM:SS)
+    const targetDate = new Date("2025-08-22T15:30:00").getTime();
+
+    const timer = document.getElementById("timer");
+    const form = document.getElementById("myForm");
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      let diff = targetDate - now;
+
+      if (diff <= 0) {
+        clearInterval(interval);
+        timer.textContent = "⛔ Time is up! Form is disabled.";
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach(input => input.disabled = true);
+        return;
+      }
+
+      // Breakdown the time
+      const seconds = Math.floor((diff / 1000) % 60);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30);
+      const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+
+      timer.textContent = `Time left: ${months} Month/ ${days} Days/ ${hours} H/ ${minutes} M ${seconds} S`;
+    }, 1000);
+  </script>
 </body>
 </html>
