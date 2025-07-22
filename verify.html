@@ -31,8 +31,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 6px;
-padding-top: 3px;
+      padding: 6px 0;
     }
 
     .dots div {
@@ -69,6 +68,7 @@ padding-top: 3px;
 
     #login, #records {
       padding: 20px;
+      width: 100%;
       max-width: 500px;
       margin: auto;
       text-align: center;
@@ -77,12 +77,13 @@ padding-top: 3px;
     h2 {
       color: navy;
       margin-top: 50px;
+      font-size: 24px;
     }
 
     input[type="password"] {
       width: 100%;
       padding: 12px;
-      font-size: 20px;
+      font-size: 18px;
       text-align: center;
       margin-top: 30px;
       border: none;
@@ -95,7 +96,8 @@ padding-top: 3px;
       background: darkgreen;
       color: #fff;
       border-radius: 20px;
-      width: 160px;
+      width: 100%;
+      max-width: 160px;
       height: 45px;
       border: none;
       font-weight: bold;
@@ -123,13 +125,18 @@ padding-top: 3px;
       100% { transform: rotate(360deg); }
     }
 
+    #tableContainer {
+      overflow-x: auto;
+      width: 100%;
+    }
+
     table {
       border-collapse: collapse;
       width: 100%;
-      margin: 20px auto;
+      min-width: 600px;
+      margin-top: 20px;
       background: #fff;
       box-shadow: 0px 2px 5px grey;
-      overflow-x: auto;
     }
 
     th, td {
@@ -147,17 +154,49 @@ padding-top: 3px;
       display: none;
     }
 
-    @media (max-width: 200px) {
+    @media (max-width: 768px) {
+      h2 {
+        font-size: 20px;
+      }
+
       input[type="password"] {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       button {
         width: 100%;
+        max-width: none;
+        font-size: 15px;
       }
 
       table, th, td {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      table, th, td {
         font-size: 12px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      input[type="password"] {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 14px;
+        height: 40px;
+      }
+
+      .dots div {
+        width: 4px;
+        height: 4px;
       }
     }
   </style>
@@ -173,12 +212,12 @@ padding-top: 3px;
   <div class="dropdown" id="menuDropdown">
     <a href="index.html">Dashboard</a>
     <a href="#about">About</a>
-     <a href="verify.html">Admin</a>
-    <a href="#settings">Settings</a
+    <a href="verify.html">Admin</a>
+    <a href="#settings">Settings</a>
   </div>
 </div>
 
-<!-- LOGIN --><center>
+<!-- LOGIN -->
 <div id="login">
   <h2>DATA CENTER</h2>
   <form id="verifyForm">
@@ -189,9 +228,9 @@ padding-top: 3px;
     </button>
     <p id="result"></p>
   </form>
-</div></center>
+</div>
 
-<!-- RECORDS --><center>
+<!-- RECORDS -->
 <div id="records">
   <h2>ALL RECORDS</h2>
   <button id="fetchBtn">
@@ -200,7 +239,7 @@ padding-top: 3px;
   </button>
   <div id="tableContainer"></div>
   <p id="result2"></p>
-</div></center>
+</div>
 
 <script>
   function toggleMenu() {
@@ -237,9 +276,8 @@ padding-top: 3px;
         resultDiv.innerText = result;
         if (result.includes("✅")) {
           resultDiv.style.color = "green";
-    
- document.getElementById("login").style.display = "none";    document.getElementById("records").style.display = "inline";
-
+          document.getElementById("login").style.display = "none";
+          document.getElementById("records").style.display = "block";
           document.getElementById("verifyBtn").style.display = "none";
         } else {
           resultDiv.style.color = "red";
@@ -306,7 +344,6 @@ padding-top: 3px;
         button.disabled = false;
       });
   });
-
 </script>
 
 </body>
