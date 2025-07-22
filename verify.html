@@ -237,7 +237,9 @@ padding-top: 3px;
         resultDiv.innerText = result;
         if (result.includes("✅")) {
           resultDiv.style.color = "green";
-          document.getElementById("records").style.display = "block";
+    
+ document.getElementById("login").style.display = "none";    document.getElementById("records").style.display = "block";
+
           document.getElementById("verifyBtn").style.display = "none";
         } else {
           resultDiv.style.color = "red";
