@@ -320,6 +320,7 @@
       }, 2000);
     });*/
   </script>
+
 <script>/*
  document.getElementById('myForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -344,6 +345,38 @@
     });
   });*/
 </script>
+
+//TIMER
+
+ <script>
+    // 🕓 Set your target end time (YYYY-MM-DDTHH:MM:SS format)
+    const targetTime = new Date("2025-08-22T15:30:00").getTime(); // example date
+
+    const timerElement = document.getElementById("timer");
+    const form = document.getElementById("myForm");
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetTime - now;
+
+      // Time calculations
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (distance > 0) {
+        timerElement.textContent = `Time left: ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        clearInterval(interval);
+        timerElement.textContent = "⛔ Time is up!.";
+        
+        // Disable all form inputs
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach(input => input.disabled = true);
+      }
+    }, 1000);
+  </script>
+
   <script>
     const lgas = {
   "Abia": [
@@ -1267,33 +1300,6 @@ document.getElementById("duplicate").innerText = "Submitted Successfully!";
     });
   });
 </script>
-  <script>
-    // 🕓 Set your target end time (YYYY-MM-DDTHH:MM:SS format)
-    const targetTime = new Date("2025-08-22T15:30:00").getTime(); // example date
-
-    const timerElement = document.getElementById("timer");
-    const form = document.getElementById("myForm");
-
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetTime - now;
-
-      // Time calculations
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      if (distance > 0) {
-        timerElement.textContent = `Time left: ${hours}h ${minutes}m ${seconds}s`;
-      } else {
-        clearInterval(interval);
-        timerElement.textContent = "⛔ Time is up!.";
-        
-        // Disable all form inputs
-        const inputs = form.querySelectorAll("input");
-        inputs.forEach(input => input.disabled = true);
-      }
-    }, 1000);
-  </script>
+ 
 </body>
 </html>
