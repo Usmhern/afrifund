@@ -245,7 +245,6 @@ margin-top:5%;
 <div id="editContainer" style="margin-top: 20px; padding: 10px;"></div>
   <p id="result2"></p>
 </div>
-
 <script>
   let globalData = [];
 
@@ -287,6 +286,7 @@ margin-top:5%;
           document.getElementById("login").style.display = "none";
           document.getElementById("records").style.display = "block";
           document.getElementById("verifyBtn").style.display = "none";
+          fetchRecords();
         } else {
           resultDiv.style.color = "red";
         }
@@ -303,8 +303,6 @@ margin-top:5%;
   });
 
   // FETCH RECORDS
-  document.getElementById("fetchBtn").addEventListener("click", fetchRecords);
-
   function fetchRecords() {
     const button = document.getElementById("fetchBtn");
     const loader = document.getElementById("loader2");
@@ -312,11 +310,13 @@ margin-top:5%;
     const tableContainer = document.getElementById("tableContainer");
     const result = document.getElementById("result2");
 
-    loader.style.display = "inline-block";
-    btnText.style.opacity = "0.5";
-    button.disabled = true;
-    result.textContent = "";
-    button.style.display = "none";
+    if (button) {
+      loader.style.display = "inline-block";
+      btnText.style.opacity = "0.5";
+      button.disabled = true;
+      result.textContent = "";
+      button.style.display = "none";
+    }
 
     fetch("https://script.google.com/macros/s/AKfycbz8R6VqVLo3n9ci-oQRcDOvwGpVbNpsJoyHHPZbMFb2-ZV8hZ05glHdRNtcEgKkcYus/exec")
       .then(res => res.json())
@@ -340,8 +340,8 @@ margin-top:5%;
           });
           tableHTML += `
             <td>
-              <button onclick="editRow(${index})" style="background:orange;color:white;padding:5px 10px;border:none;border-radius:5px;margin-right:5px;">Edit</button>
-              <button onclick="deleteRow(${index})" style="background:red;color:white;padding:5px 10px;border:none;border-radius:5px;">Delete</button>
+              <button onclick="editRow(${index})">Edit</button>
+              <button onclick="deleteRow(${index})">Delete</button>
             </td>
           </tr>`;
         });
@@ -356,9 +356,11 @@ margin-top:5%;
         tableContainer.innerHTML = "";
       })
       .finally(() => {
-        loader.style.display = "none";
-        btnText.style.opacity = "1";
-        button.disabled = false;
+        if (button) {
+          loader.style.display = "none";
+          btnText.style.opacity = "1";
+          button.disabled = false;
+        }
       });
   }
 
@@ -391,13 +393,12 @@ margin-top:5%;
     keys.forEach(key => {
       formHtml += `
         <label>${key}</label><br/>
-        <input type="text" name="${key}" value="${row[key]}" style="width:95%;margin-bottom:10px;" required /><br/>
-      `;
+        <input type="text" name="${key}" value="${row[key]}" required /><br/>`;
     });
     formHtml += `
       <input type="hidden" name="index" value="${index}" />
-      <button type="submit" style="background:green;color:white;padding:10px 20px;border:none;border-radius:5px;">Save</button>
-      <button type="button" onclick="document.getElementById('editContainer').innerHTML=''" style="margin-left:10px;">Cancel</button>
+      <button type="submit">Save</button>
+      <button type="button" onclick="document.getElementById('editContainer').innerHTML=''">Cancel</button>
     </form>`;
 
     document.getElementById("editContainer").innerHTML = formHtml;
