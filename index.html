@@ -11,7 +11,7 @@
       font-family: 'Segoe UI', sans-serif;
     }
 #timer {
-      font-size: 12px;
+      font-size: 10px;
       font-weight: bold;
       margin-bottom: 15px;
       color: red;
@@ -372,7 +372,7 @@
       const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30);
       const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
 
-      timer.textContent = `⏳ Time left: ${months}Months/ ${days}Days/ ${hours}Hours/ ${minutes}Minutes ${seconds}Seconds`;
+      timer.textContent = `⏳ Time left: ${months} Month/ ${days} Days/ ${hours} Hours/ ${minutes} Minutes ${seconds} Seconds`;
     }, 1000);
   </script>
 
