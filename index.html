@@ -173,7 +173,7 @@ font-family:monospace;
     
    }
 #myForm{
-display:none;
+//display:none;
 }
   </style>
 </head>
@@ -186,7 +186,7 @@ display:none;
 
 <div id="timer">...</div>
 
-<center><h3 style="color:red;"> We are working on updates please be patient the form will be available!!</h3></center>
+<!-- <center><h3 style="color:red;"> We are working on updates please be patient the form will be available!!</h3></center> -->
 </br>
     <form id="myForm">
       <div class="input-group">
@@ -318,16 +318,6 @@ display:none;
       
   </div>
 
-<script>
-  function disableForm() {
-    const form = document.getElementById("myForm");
-    const elements = form.elements;
-
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].disabled = true;
-    }
-  }
-</script>
    <script>/*
     const form = document.getElementById('myForm');
     const submitBtn = document.getElementById('submitBtn');
@@ -1259,7 +1249,7 @@ display:none;
     const formData = new FormData(form);
 
     // Send data using fetch
-    fetch('https://script.google.com/macros/s/AKfycbz4Hnv3MeSovvS62-oj0BIU4kakdN3QAfzsRLousmTBHmW5knBNjBewNJxsleumYcm8/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbzpkE-8BOaXOFTmXfu2zmJCt7XLlHbHv70HaskMoXLoWq1RWR5OBQnHJGoIjBcjekI/exec', {
       method: 'POST',
       body: formData
     })
