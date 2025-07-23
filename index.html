@@ -1289,45 +1289,6 @@ document.getElementById("duplicate").innerText = "Submitted Successfully!";
   });*/
 </script>
 
-
-
-
-//FORM
-
-<script>
-    const form = document.getElementById("myForm");
-    const responseDiv = document.getElementById("duplicate");
-
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbymwKgIOx7Zfy_7ux3XNElKiFG0pRYl65isN-zRyuUeFRHLQhoThK8dfGqjZtsWoFHq/exec", {
-          method: "POST",
-          body: formData
-        });
-
-        const text = await res.text();
-
-        if (text.includes("Already Registered")) {
-          responseDiv.style.color = "red";
-          responseDiv.textContent = "❌ Already Registered!";
-        } else if (text.includes("Submitted")) {
-          responseDiv.style.color = "green";
-          responseDiv.textContent = "✅ Submitted successfully!";
-          setTimeout(() => location.reload(), 2000);
-        } else {
-          responseDiv.style.color = "orange";
-          responseDiv.textContent = text;
-        }
-      } catch (err) {
-        responseDiv.style.color = "red";
-        responseDiv.textContent = "❌ Error submitting form.";
-      }
-    });
-  </script>
  <script>
     // 🔒 Set your deadline (YYYY-MM-DDTHH:MM:SS)
     const targetDate = new Date("2025-08-22T15:30:00").getTime();
