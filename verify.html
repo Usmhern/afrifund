@@ -273,7 +273,7 @@
     btnText.style.visibility = "hidden";
     button.disabled = true;
 
-    fetch(`https://script.google.com/macros/s/AKfycbxvqWrGLXZNKU_HoqRmE9Qo9f-8S8NYCRnGsxvtxGvPpDO1fKLGj0PcNtOhFp6p_S2K/exec?otp=${encodeURIComponent(otp)}`)
+    fetch(`https://script.google.com/macros/s/AKfycbwj9btvDnEfNASlRjYIlWEhGEmhY3XHdRkuOMEiCtLqOjnM8jrE45qkmX7trqiA09hO/exec?otp=${encodeURIComponent(otp)}`)
       .then(res => res.text())
       .then(result => {
         resultDiv.innerText = result;
@@ -312,7 +312,7 @@
     button.disabled = true;
     result.textContent = "";
 
-    fetch("https://script.google.com/macros/s/AKfycbxvqWrGLXZNKU_HoqRmE9Qo9f-8S8NYCRnGsxvtxGvPpDO1fKLGj0PcNtOhFp6p_S2K/exec")
+    fetch("https://script.google.com/macros/s/AKfycbwj9btvDnEfNASlRjYIlWEhGEmhY3XHdRkuOMEiCtLqOjnM8jrE45qkmX7trqiA09hO/exec")
       .then(res => res.json())
       .then(data => {
         globalData = data;
@@ -383,7 +383,7 @@
       updatedValues.push(row.children[i].innerText.trim());
     }
 
-    fetch("https://script.google.com/macros/s/AKfycbxvqWrGLXZNKU_HoqRmE9Qo9f-8S8NYCRnGsxvtxGvPpDO1fKLGj0PcNtOhFp6p_S2K/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwj9btvDnEfNASlRjYIlWEhGEmhY3XHdRkuOMEiCtLqOjnM8jrE45qkmX7trqiA09hO/exec", {
       method: "POST",
       body: JSON.stringify({
         action: "update",
@@ -414,7 +414,7 @@
   function deleteRow(index) {
     if (!confirm("Are you sure you want to delete this record?")) return;
 
-    fetch("https://script.google.com/macros/s/AKfycbxvqWrGLXZNKU_HoqRmE9Qo9f-8S8NYCRnGsxvtxGvPpDO1fKLGj0PcNtOhFp6p_S2K/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwj9btvDnEfNASlRjYIlWEhGEmhY3XHdRkuOMEiCtLqOjnM8jrE45qkmX7trqiA09hO/exec", {
       method: "POST",
       body: JSON.stringify({ action: "delete", index }),
       headers: { "Content-Type": "application/json" }
