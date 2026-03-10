@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DATA CENTER</title>
+<title>Data Center</title>
 
 <style>
 
@@ -69,7 +69,7 @@ background:#f2f2f2;
 
 #records{
 padding:20px;
-max-width:900px;
+max-width:1000px;
 margin:auto;
 text-align:center;
 }
@@ -83,8 +83,8 @@ margin-top:40px;
 border:4px solid #f3f3f3;
 border-top:4px solid darkblue;
 border-radius:50%;
-width:30px;
-height:30px;
+width:35px;
+height:35px;
 animation:spin 1s linear infinite;
 margin:auto;
 margin-top:40px;
@@ -115,11 +115,16 @@ color:white;
 }
 
 </style>
+
 </head>
 
 <body>
 
+
+<!-- MENU -->
+
 <div class="menu-container">
+
 <div class="dots" onclick="toggleMenu()">
 <div></div>
 <div></div>
@@ -131,7 +136,11 @@ color:white;
 <a href="#">About</a>
 <a href="#">Settings</a>
 </div>
+
 </div>
+
+
+<!-- RECORDS -->
 
 <div id="records">
 
@@ -150,14 +159,15 @@ color:white;
 
 let globalData=[];
 
+
 /* MENU */
 
 function toggleMenu(){
 
 const dropdown=document.getElementById('menuDropdown');
 
-dropdown.style.display=
-dropdown.style.display==="block"?"none":"block";
+dropdown.style.display =
+dropdown.style.display==="block" ? "none" : "block";
 
 }
 
@@ -174,7 +184,7 @@ menu.style.display="none";
 
 
 
-/* AUTO FETCH WHEN PAGE LOADS */
+/* FETCH DATA AUTOMATICALLY */
 
 window.onload=function(){
 
@@ -192,57 +202,94 @@ const result=document.getElementById("result");
 
 loader.style.display="block";
 
+
 fetch("https://script.google.com/macros/s/AKfycbwj9btvDnEfNASlRjYIlWEhGEmhY3XHdRkuOMEiCtLqOjnM8jrE45qkmX7trqiA09hO/exec")
 
-.then(res=>res.json())
+.then(res=>res.text())
 
-.then(data=>{
+.then(text=>{
 
-globalData=data;
+let data;
 
-if(!Array.isArray(data)||data.length===0){
+try{
 
-tableContainer.innerHTML="<p>No records found</p>";
+data = JSON.parse(text);
+
+}catch(e){
+
+result.innerText="❌ Invalid data returned from server";
+
+loader.style.display="none";
 
 return;
 
 }
 
-let headers=Object.keys(data[0]);
 
-let html="<table>";
+globalData=data;
 
-html+="<tr><th>SN</th>";
+
+if(!Array.isArray(data) || data.length===0){
+
+tableContainer.innerHTML="<p>No records found</p>";
+
+loader.style.display="none";
+
+return;
+
+}
+
+
+let headers = Object.keys(data[0]);
+
+let html = "<table>";
+
+html += "<tr><th>SN</th>";
+
 
 headers.forEach(h=>{
-html+=`<th>${h}</th>`;
+
+html += `<th>${h}</th>`;
+
 });
 
-html+="</tr>";
+
+html += "</tr>";
+
 
 data.forEach((row,i)=>{
 
-html+=`<tr><td>${i+1}</td>`;
+html += `<tr><td>${i+1}</td>`;
+
 
 headers.forEach(h=>{
-html+=`<td>${row[h]||""}</td>`;
-});
 
-html+="</tr>";
+html += `<td>${row[h] || ""}</td>`;
 
 });
 
-html+="</table>";
 
-tableContainer.innerHTML=html;
+html += "</tr>";
+
+});
+
+
+html += "</table>";
+
+
+tableContainer.innerHTML = html;
 
 })
 
-.catch(()=>{
+
+.catch(err=>{
+
+console.error(err);
 
 result.innerText="❌ Error loading records";
 
 })
+
 
 .finally(()=>{
 
